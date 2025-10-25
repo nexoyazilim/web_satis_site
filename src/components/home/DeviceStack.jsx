@@ -1,23 +1,26 @@
 import React from 'react'
-import '../../css/home/DeviceStack.css'
 
 const DeviceStack = () => {
   return (
-    <div className="device-stack">
-      <div className="device-container">
+    <div className="flex justify-center items-center relative w-full h-full">
+      <div className="relative  flex justify-center items-center">
         {/* Laptop - Bottom layer */}
-        <div className="device laptop-device">
-          <img src="/laptop.png" alt="Laptop" className="device-image laptop-image" />
+        <div className="absolute flex justify-center items-center z-10">
+          <img 
+            src="/laptop.png" 
+            alt="Laptop" 
+            className="object-contain drop-shadow-2xl !w-[700px] !max-w-none " 
+          />
         </div>
         
         {/* Tablet - Middle layer */}
-        <div className="device tablet-device">
-          <img src="/tablet.png" alt="Tablet" className="device-image tablet-image" />
+        <div className="absolute top-10 left-96 z-20 relative">
+          <img src="/tablet.png" alt="Tablet" className="object-contain drop-shadow-2xl w-[250px]" />
         </div>
         
         {/* Phone - Top layer */}
-        <div className="device phone-device">
-          <img src="/iphone.png" alt="iPhone" className="device-image phone-image" />
+        <div className="absolute top-20 left-72 z-30 relative">
+          <img src="/iphone.png" alt="iPhone" className="object-contain drop-shadow-2xl w-[150px]" />
         </div>
       </div>
     </div>

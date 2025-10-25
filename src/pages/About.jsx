@@ -6,7 +6,7 @@ import AboutTeam from '../components/about/AboutTeam'
 
 const About = () => {
   return (
-    <div className="about-page">
+    <div>
       <AboutHeader />
       <AboutStats />
       <AboutFeatures />

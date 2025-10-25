@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import '../../css/contact/ContactForm.css'
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -43,18 +42,18 @@ const ContactForm = () => {
   ]
 
   return (
-    <section className="contact-form section">
-      <div className="container">
-        <div className="form-container">
-          <div className="form-header">
-            <h2>Mesaj Gönderin</h2>
-            <p>Projeniz hakkında detayları paylaşın, size en uygun çözümü sunalım.</p>
+    <section className="py-20 bg-white">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-gray-50 p-8 rounded-lg">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Mesaj Gönderin</h2>
+            <p className="text-gray-600">Projeniz hakkında detayları paylaşın, size en uygun çözümü sunalım.</p>
           </div>
           
-          <form className="contact-form-content" onSubmit={handleSubmit}>
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="name">Ad Soyad *</label>
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">Ad Soyad *</label>
                 <input
                   type="text"
                   id="name"
@@ -62,12 +61,13 @@ const ContactForm = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent"
                   placeholder="Adınızı ve soyadınızı girin"
                 />
               </div>
 
-              <div className="form-group">
-                <label htmlFor="email">E-posta *</label>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">E-posta *</label>
                 <input
                   type="email"
                   id="email"
@@ -75,44 +75,48 @@ const ContactForm = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent"
                   placeholder="E-posta adresinizi girin"
                 />
               </div>
             </div>
 
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="phone">Telefon</label>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">Telefon</label>
                 <input
                   type="tel"
                   id="phone"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent"
                   placeholder="Telefon numaranızı girin"
                 />
               </div>
 
-              <div className="form-group">
-                <label htmlFor="company">Şirket</label>
+              <div>
+                <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">Şirket</label>
                 <input
                   type="text"
                   id="company"
                   name="company"
                   value={formData.company}
                   onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent"
                   placeholder="Şirket adınızı girin"
                 />
               </div>
             </div>
 
-            <div className="form-group">
-              <label htmlFor="service">İlgilendiğiniz Hizmet</label>
+            <div>
+              <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">İlgilendiğiniz Hizmet</label>
               <select
                 id="service"
                 name="service"
                 value={formData.service}
                 onChange={handleChange}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="">Hizmet seçin</option>
                 {services.map((service, index) => (
@@ -123,8 +127,8 @@ const ContactForm = () => {
               </select>
             </div>
 
-            <div className="form-group">
-              <label htmlFor="message">Mesaj *</label>
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">Mesaj *</label>
               <textarea
                 id="message"
                 name="message"
@@ -132,11 +136,12 @@ const ContactForm = () => {
                 onChange={handleChange}
                 required
                 rows="6"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Projeniz hakkında detayları paylaşın"
               ></textarea>
             </div>
 
-            <button type="submit" className="submit-button">
+            <button type="submit" className="w-full btn btn-primary py-4">
               Mesaj Gönder
             </button>
           </form>

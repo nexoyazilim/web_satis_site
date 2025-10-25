@@ -1,5 +1,4 @@
 import React from 'react'
-import '../../css/home/WhyChooseUs.css'
 
 const WhyChooseUs = () => {
   const reasons = [
@@ -45,27 +44,27 @@ const WhyChooseUs = () => {
   ]
 
   return (
-    <section className="why-choose-us section">
-      <div className="container">
-        <div className="choose-us-content">
-          <div className="choose-us-text">
-            <h2 className="section-title">Neden Bizi Seçmelisiniz?</h2>
-            <p className="section-description">
+    <section className="py-20 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">Neden Bizi Seçmelisiniz?</h2>
+            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
               Web tasarımı ve geliştirme konusunda sunduğumuz avantajlar ile 
               projelerinizi başarıya ulaştırıyoruz.
             </p>
-            <div className="choose-us-stats">
-              <div className="stat-item">
-                <div className="stat-number">50+</div>
-                <div className="stat-label">Tamamlanan Proje</div>
+            <div className="grid grid-cols-3 gap-8 mb-8">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-gray-800 mb-2">50+</div>
+                <div className="text-sm text-gray-600">Tamamlanan Proje</div>
               </div>
-              <div className="stat-item">
-                <div className="stat-number">5+</div>
-                <div className="stat-label">Yıllık Deneyim</div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-gray-800 mb-2">5+</div>
+                <div className="text-sm text-gray-600">Yıllık Deneyim</div>
               </div>
-              <div className="stat-item">
-                <div className="stat-number">100%</div>
-                <div className="stat-label">Müşteri Memnuniyeti</div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-gray-800 mb-2">100%</div>
+                <div className="text-sm text-gray-600">Müşteri Memnuniyeti</div>
               </div>
             </div>
             <a href="/contact" className="btn btn-primary">
@@ -73,16 +72,14 @@ const WhyChooseUs = () => {
             </a>
           </div>
           
-          <div className="choose-us-features">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {reasons.map((reason, index) => (
-              <div key={index} className="reason-card">
-                <div className="reason-icon">
+              <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div className="text-gray-800 mb-4">
                   {reason.icon}
                 </div>
-                <div className="reason-content">
-                  <h3 className="reason-title">{reason.title}</h3>
-                  <p className="reason-description">{reason.description}</p>
-                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{reason.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">{reason.description}</p>
               </div>
             ))}
           </div>

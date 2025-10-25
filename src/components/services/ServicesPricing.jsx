@@ -1,5 +1,4 @@
 import React from 'react'
-import '../../css/services/ServicesPricing.css'
 
 const ServicesPricing = () => {
   const pricingPlans = [
@@ -53,41 +52,45 @@ const ServicesPricing = () => {
   ]
 
   return (
-    <section className="services-pricing section">
-      <div className="container">
-        <div className="pricing-header text-center">
-          <h2 className="section-title">Fiyatlandırma</h2>
-          <p className="section-subtitle">
+    <section className="py-20 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">Fiyatlandırma</h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Projenizin büyüklüğüne göre size uygun paketi seçin
           </p>
         </div>
         
-        <div className="pricing-grid">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {pricingPlans.map((plan, index) => (
-            <div key={index} className={`pricing-card ${plan.popular ? 'popular' : ''}`}>
-              {plan.popular && <div className="popular-badge">En Popüler</div>}
-              
-              <div className="plan-header">
-                <h3 className="plan-name">{plan.name}</h3>
-                <div className="plan-price">
-                  <span className="price">{plan.price}</span>
-                  <span className="period">{plan.period}</span>
+            <div key={index} className={`relative bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ${plan.popular ? 'ring-2 ring-gray-800' : ''}`}>
+              {plan.popular && (
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <span className="bg-gray-800 text-white px-4 py-2 rounded-full text-sm font-medium">En Popüler</span>
                 </div>
-                <p className="plan-description">{plan.description}</p>
+              )}
+              
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">{plan.name}</h3>
+                <div className="mb-4">
+                  <span className="text-4xl font-bold text-gray-800">{plan.price}</span>
+                  <span className="text-gray-600 ml-2">{plan.period}</span>
+                </div>
+                <p className="text-gray-600">{plan.description}</p>
               </div>
               
-              <ul className="plan-features">
+              <ul className="space-y-4 mb-8">
                 {plan.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="feature-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <li key={featureIndex} className="flex items-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-600 mr-3 flex-shrink-0">
                       <polyline points="20,6 9,17 4,12"/>
                     </svg>
-                    {feature}
+                    <span className="text-gray-600">{feature}</span>
                   </li>
                 ))}
               </ul>
               
-              <a href="#iletisim" className="plan-button">
+              <a href="#iletisim" className={`w-full btn ${plan.popular ? 'btn-primary' : 'btn-secondary'} block text-center`}>
                 Paketi Seç
               </a>
             </div>

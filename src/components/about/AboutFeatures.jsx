@@ -1,5 +1,4 @@
 import React from 'react'
-import '../../css/about/AboutFeatures.css'
 
 const AboutFeatures = () => {
   const features = [
@@ -45,23 +44,23 @@ const AboutFeatures = () => {
   ]
 
   return (
-    <section className="about-features section">
-      <div className="container">
-        <div className="features-header text-center">
-          <h2 className="section-title">Neden Bizi Seçmelisiniz?</h2>
-          <p className="section-subtitle">
+    <section className="py-20 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">Neden Bizi Seçmelisiniz?</h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Web tasarımı ve geliştirme konusunda sunduğumuz avantajlar
           </p>
         </div>
         
-        <div className="features-grid">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
-            <div key={index} className="feature-card">
-              <div className="feature-icon">
+            <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="text-gray-800 mb-4">
                 {feature.icon}
               </div>
-              <h3 className="feature-title">{feature.title}</h3>
-              <p className="feature-description">{feature.description}</p>
+              <h3 className="text-lg font-bold text-gray-900 mb-3">{feature.title}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">{feature.description}</p>
             </div>
           ))}
         </div>

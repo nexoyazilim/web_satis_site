@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import '/src/css/Footer.css'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -66,24 +65,24 @@ const Footer = () => {
   ]
 
   return (
-    <footer className="footer">
-      <div className="container">
-        <div className="footer-content">
-          <div className="footer-brand">
-            <div className="footer-logo">
-              <Link to="/">
-                <span className="logo-text">MONOCHROME</span>
+    <footer className="bg-gray-900 text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="lg:col-span-1">
+            <div className="mb-6">
+              <Link to="/" className="text-2xl font-bold text-white hover:text-gray-300 transition-colors">
+                MONOCHROME
               </Link>
             </div>
-            <p className="footer-description">
+            <p className="text-gray-400 mb-6 leading-relaxed">
               Modern web tasarımı ve geliştirme hizmetleri ile işletmenizi dijital dünyada güçlendiriyoruz.
             </p>
-            <div className="social-links">
+            <div className="flex space-x-4">
               {socialLinks.map((social, index) => (
                 <a
                   key={index}
                   href={social.href}
-                  className="social-link"
+                  className="text-gray-400 hover:text-white transition-colors"
                   aria-label={social.name}
                 >
                   {social.icon}
@@ -92,35 +91,41 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="footer-links">
-            <div className="link-group">
-              <h4>Şirket</h4>
-              <ul>
+          <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Şirket</h4>
+              <ul className="space-y-2">
                 {footerLinks.company.map((link, index) => (
                   <li key={index}>
-                    <Link to={link.href}>{link.name}</Link>
+                    <Link to={link.href} className="text-gray-400 hover:text-white transition-colors">
+                      {link.name}
+                    </Link>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="link-group">
-              <h4>Hizmetler</h4>
-              <ul>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Hizmetler</h4>
+              <ul className="space-y-2">
                 {footerLinks.services.map((link, index) => (
                   <li key={index}>
-                    <Link to={link.href}>{link.name}</Link>
+                    <Link to={link.href} className="text-gray-400 hover:text-white transition-colors">
+                      {link.name}
+                    </Link>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="link-group">
-              <h4>Destek</h4>
-              <ul>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Destek</h4>
+              <ul className="space-y-2">
                 {footerLinks.support.map((link, index) => (
                   <li key={index}>
-                    <Link to={link.href}>{link.name}</Link>
+                    <Link to={link.href} className="text-gray-400 hover:text-white transition-colors">
+                      {link.name}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -128,13 +133,21 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="footer-bottom">
-          <div className="footer-bottom-content">
-            <p>&copy; {currentYear} Monochrome. Tüm hakları saklıdır.</p>
-            <div className="footer-bottom-links">
-              <a href="#">Gizlilik Politikası</a>
-              <a href="#">Kullanım Şartları</a>
-              <a href="#">Çerez Politikası</a>
+        <div className="border-t border-gray-800 mt-12 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <p className="text-gray-400 text-sm">
+              &copy; {currentYear} Monochrome. Tüm hakları saklıdır.
+            </p>
+            <div className="flex space-x-6 mt-4 md:mt-0">
+              <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">
+                Gizlilik Politikası
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">
+                Kullanım Şartları
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">
+                Çerez Politikası
+              </a>
             </div>
           </div>
         </div>

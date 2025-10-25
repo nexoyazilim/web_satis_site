@@ -6,7 +6,7 @@ import WhyChooseUs from '../components/home/WhyChooseUs'
 
 const Home = () => {
   return (
-    <div className="home-page">
+    <div>
       <HeroSection />
       <DemoSlider />
       <FeaturedServices />

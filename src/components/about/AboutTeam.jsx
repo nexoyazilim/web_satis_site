@@ -1,5 +1,4 @@
 import React from 'react'
-import '../../css/about/AboutTeam.css'
 
 const AboutTeam = () => {
   const teamMembers = [
@@ -30,31 +29,29 @@ const AboutTeam = () => {
   ]
 
   return (
-    <section className="about-team section">
-      <div className="container">
-        <div className="team-header text-center">
-          <h2 className="section-title">Ekibimiz</h2>
-          <p className="section-subtitle">
+    <section className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">Ekibimiz</h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Projelerinizi hayata geçiren deneyimli ekibimizle tanışın
           </p>
         </div>
         
-        <div className="team-grid">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {teamMembers.map((member, index) => (
-            <div key={index} className="team-card">
-              <div className="team-image">
-                <div className="image-placeholder">
-                  <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+            <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
+              <div className="mb-4">
+                <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mx-auto">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-gray-500">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                     <circle cx="12" cy="7" r="4"/>
                   </svg>
                 </div>
               </div>
-              <div className="team-info">
-                <h3 className="team-name">{member.name}</h3>
-                <p className="team-position">{member.position}</p>
-                <p className="team-description">{member.description}</p>
-              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-1">{member.name}</h3>
+              <p className="text-gray-800 font-medium mb-2">{member.position}</p>
+              <p className="text-gray-600 text-sm">{member.description}</p>
             </div>
           ))}
         </div>
