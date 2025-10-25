@@ -95,14 +95,14 @@
   min-height: 400px;
 }
 
-/* Animation */
-.hero-graphic {
+/* Animation - Kaldırıldı */
+/* .hero-graphic {
   animation: float 6s ease-in-out infinite;
 }
 
 .laptop-image {
   animation: float 6s ease-in-out infinite;
-}
+} */
 
 @keyframes float {
   0%, 100% {

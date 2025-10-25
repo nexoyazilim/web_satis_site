@@ -1,8 +1,6 @@
 import React, { useRef, useEffect } from 'react'
-import { Canvas, useFrame, useLoader } from '@react-three/fiber'
+import { Canvas, useFrame } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { OrbitControls, Environment } from '@react-three/drei'
-import * as THREE from 'three'
 import '../../css/home/MacBook3D.css'
 
 function MacBookModel() {
@@ -110,7 +108,83 @@ function MacBookModel() {
     <primitive 
       ref={meshRef}
       object={model} 
-      scale={[0.1, 0.1, 0.1]}
+      scale={[0.2, 0.2, 0.2]}
+      position={[0, 0, 0]}
+    />
+  )
+}
+
+function IPhoneModel() {
+  const meshRef = useRef()
+  
+  // Model yüklenene kadar placeholder göster
+  const [model, setModel] = React.useState(null)
+  const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState(null)
+
+  useEffect(() => {
+    const loader = new GLTFLoader()
+    
+    loader.load(
+      '/iphone.glb',
+      (gltf) => {
+        setModel(gltf.scene)
+        setLoading(false)
+      },
+      undefined,
+      (error) => {
+        console.log('iPhone GLB yüklenemedi:', error)
+        setError(error)
+        setLoading(false)
+      }
+    )
+  }, [])
+
+  useFrame((state, delta) => {
+    if (meshRef.current) {
+      // Çember üzerinde döndürme - ters yön (MacBook'un karşısında)
+      const time = state.clock.getElapsedTime()
+      const radius = 2
+      meshRef.current.position.x = Math.cos(-time * 0.5 + Math.PI) * radius // 180 derece fark
+      meshRef.current.position.z = Math.sin(-time * 0.5 + Math.PI) * radius
+      meshRef.current.position.y = 0
+      
+      // iPhone'u MacBook'un tam karşısına bakacak şekilde döndür
+      meshRef.current.lookAt(0, 0, 0)
+      meshRef.current.rotateY(Math.PI) // 180 derece çevir (MacBook ile ters yön)
+    }
+  })
+
+  if (loading) {
+    return (
+      <mesh ref={meshRef}>
+        <boxGeometry args={[0.5, 1, 0.1]} />
+        <meshStandardMaterial color="#f0f0f0" />
+      </mesh>
+    )
+  }
+
+  if (error || !model) {
+    // Fallback: Basit iPhone benzeri model
+    return (
+      <group ref={meshRef}>
+        <mesh position={[0, 0, 0]}>
+          <boxGeometry args={[0.5, 1, 0.1]} />
+          <meshStandardMaterial color="#1f2937" />
+        </mesh>
+        <mesh position={[0, 0.3, 0.06]}>
+          <boxGeometry args={[0.4, 0.6, 0.02]} />
+          <meshStandardMaterial color="#000000" />
+        </mesh>
+      </group>
+    )
+  }
+
+  return (
+    <primitive 
+      ref={meshRef}
+      object={model} 
+      scale={[1.5, 1.5, 1.5]}
       position={[0, 0, 0]}
     />
   )
@@ -120,12 +194,13 @@ const MacBook3D = () => {
   return (
     <div className="macbook-3d-container">
       <Canvas
-        camera={{ position: [1, 3, 5], fov: 50 }}
+        camera={{ position: [1, 6, 15], fov: 40 }}
         style={{ width: '100%', height: '100%' }}
       >
         <ambientLight intensity={1} />
         
         <MacBookModel />
+        <IPhoneModel />
       </Canvas>
     </div>
   )
