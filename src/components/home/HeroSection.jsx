@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import '../../css/home/HeroSection.css'
+import MacBook3D from './MacBook3D'
 
 const HeroSection = () => {
   const [displayText1, setDisplayText1] = useState('')
@@ -61,7 +62,7 @@ const HeroSection = () => {
           </div>
           <div className="hero-image">
             <div className="hero-graphic">
-              <img src="/laptop.png" alt="Modern Laptop" className="laptop-image" />
+              <MacBook3D />
             </div>
           </div>
         </div>

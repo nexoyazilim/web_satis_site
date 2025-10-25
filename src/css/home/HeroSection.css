@@ -88,6 +88,13 @@
   filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
 }
 
+/* 3D Model Styles */
+.hero-graphic .macbook-3d-container {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+}
+
 /* Animation */
 .hero-graphic {
   animation: float 6s ease-in-out infinite;
@@ -119,6 +126,10 @@
     width: 300px;
     height: 300px;
   }
+  
+  .hero-graphic .macbook-3d-container {
+    min-height: 300px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -141,6 +152,10 @@
   .hero-graphic {
     width: 250px;
     height: 250px;
+  }
+  
+  .hero-graphic .macbook-3d-container {
+    min-height: 250px;
   }
 }
 
@@ -170,5 +185,9 @@
   .hero-graphic {
     width: 200px;
     height: 200px;
+  }
+  
+  .hero-graphic .macbook-3d-container {
+    min-height: 200px;
   }
 }
