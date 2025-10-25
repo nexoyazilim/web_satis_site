@@ -15,8 +15,11 @@ import Register from './pages/Register'
 import Panel from './pages/Panel'
 
 function App() {
+  // GitHub Pages için base path, development'ta boş
+  const basename = import.meta.env.BASE_URL || '/'
+  
   return (
-    <Router>
+    <Router basename={basename}>
       <div className="app">
         <Navbar />
         <main>
