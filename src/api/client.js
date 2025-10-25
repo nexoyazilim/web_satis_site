@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 // Backend API Base URL
+// .env dosyasında VITE_API_URL tanımlanmalı
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 // Axios client oluştur
