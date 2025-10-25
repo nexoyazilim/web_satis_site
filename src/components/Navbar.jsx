@@ -28,7 +28,7 @@ const Navbar = () => {
                 <Link to="/about" className="nav-link">Hakkımızda</Link>
               </li>
               <li className="nav-item">
-                <Link to="/portfolio" className="nav-link">Portfolyo</Link>
+                <Link to="/portfolio" className="nav-link">Demo Siteler</Link>
               </li>
               <li className="nav-item">
                 <Link to="/contact" className="nav-link">İletişim</Link>

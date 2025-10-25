@@ -1,7 +1,7 @@
 import React from 'react'
-import '/src/css/Portfolio.css'
+import '/src/css/DemoSlider.css'
 
-const Portfolio = () => {
+const DemoSlider = () => {
   const demoWebsites = [
     {
       id: 1,
@@ -78,28 +78,54 @@ const Portfolio = () => {
   ]
 
   return (
-    <div className="portfolio-page">
-      <div className="container">
-        <div className="section-lg">
-          <div className="text-center">
-            <h1>Demo Siteler</h1>
-            <p>Farklı sektörlerden örnek web sitelerimizi inceleyin</p>
-          </div>
+    <section className="demo-slider-section">
+      <div className="demo-container">
+        <div className="demo-slider-header">
+          <h2>Demo Sitelerimiz</h2>
+          <p>Farklı sektörlerden örnek web sitelerimizi keşfedin</p>
+        </div>
+
           
-          <div className="demo-grid">
+        <div className="demo-slider-container">
+          <div className='left-opacity'></div>  
+          <div className="demo-slider-track">
+            {/* İlk set */}
             {demoWebsites.map((website) => (
-              <div key={website.id} className="demo-card">
-                <div className="demo-card-image">
+              <div key={website.id} className="demo-slider-card">
+                <div className="demo-slider-image">
                   {website.image ? (
                     <img src={website.image} alt={website.title} />
                   ) : (
-                    <div className="demo-card-placeholder"></div>
+                    <div className="demo-slider-placeholder"></div>
                   )}
-                  <div className="demo-card-overlay">
-                    <div className="demo-card-content">
+                  <div className="demo-slider-overlay">
+                    <div className="demo-slider-content">
                       <h3>{website.title}</h3>
                       <p>{website.description}</p>
-                      <div className="demo-card-buttons">
+                      <div className="demo-slider-buttons">
+                        <button className="btn btn-primary">Paketleri İncele</button>
+                        <button className="btn btn-secondary">Demoyu İncele</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+            
+            {/* İkinci set (sürekli kayma için) */}
+            {demoWebsites.map((website) => (
+              <div key={`duplicate-${website.id}`} className="demo-slider-card">
+                <div className="demo-slider-image">
+                  {website.image ? (
+                    <img src={website.image} alt={website.title} />
+                  ) : (
+                    <div className="demo-slider-placeholder"></div>
+                  )}
+                  <div className="demo-slider-overlay">
+                    <div className="demo-slider-content">
+                      <h3>{website.title}</h3>
+                      <p>{website.description}</p>
+                      <div className="demo-slider-buttons">
                         <button className="btn btn-primary">Paketleri İncele</button>
                         <button className="btn btn-secondary">Demoyu İncele</button>
                       </div>
@@ -109,10 +135,14 @@ const Portfolio = () => {
               </div>
             ))}
           </div>
+          <div className='right-opacity'></div>
         </div>
-      </div>
-    </div>
+        
+        </div>
+        
+      
+    </section>
   )
 }
 
-export default Portfolio
+export default DemoSlider

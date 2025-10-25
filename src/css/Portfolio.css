@@ -1,0 +1,199 @@
+/* Portfolio/Demo Sitesi Stilleri */
+.portfolio-page {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.demo-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 600px;
+  height: 307px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: white;
+}
+
+.demo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.demo-card-image {
+  width: 100%;
+  background-color: white;
+}
+
+.demo-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+}
+
+.demo-card-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.demo-card:hover .demo-card-image img {
+  transform: scale(1.05);
+}
+
+.demo-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.demo-card:hover .demo-card-overlay {
+  opacity: 1;
+}
+
+.demo-card-content {
+  text-align: center;
+  color: white;
+  padding: 1rem;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.demo-card:hover .demo-card-content {
+  transform: translateY(0);
+}
+
+.demo-card-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.demo-card-content p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+.demo-card-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.demo-card-buttons .btn {
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  min-width: 120px;
+}
+
+.demo-card-buttons .btn-primary {
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.demo-card-buttons .btn-primary:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.demo-card-buttons .btn-secondary {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.demo-card-buttons .btn-secondary:hover {
+  background-color: white;
+  color: #333;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 1200px) {
+  .demo-card {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2/1;
+  }
+}
+
+@media (max-width: 768px) {
+  .demo-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  
+  .demo-card {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2/1;
+  }
+  
+  .demo-card-content h3 {
+    font-size: 1.25rem;
+  }
+  
+  .demo-card-content p {
+    font-size: 0.9rem;
+  }
+  
+  .demo-card-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .demo-card-buttons .btn {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .demo-card {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2/1;
+  }
+  
+  .demo-card-content h3 {
+    font-size: 1.1rem;
+  }
+  
+  .demo-card-content p {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  
+  .demo-card-buttons .btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+}
