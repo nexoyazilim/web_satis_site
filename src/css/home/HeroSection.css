@@ -1,4 +1,6 @@
 /* Hero Section Styles */
+
+
 .hero-section {
   padding: 60px 0 80px;
   background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
@@ -10,12 +12,16 @@
 .hero-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: 4rem;
   align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .hero-text {
   max-width: 800px;
+  justify-self: start;
 }
 
 .hero-title {
@@ -68,49 +74,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-}
-
-.hero-graphic {
-  position: relative;
-  width: 700px;
-  height: 700px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.laptop-image {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
-}
-
-/* 3D Model Styles */
-.hero-graphic .macbook-3d-container {
-  width: 100%;
-  height: 100%;
-  min-height: 400px;
-}
-
-/* Animation - Kaldırıldı */
-/* .hero-graphic {
-  animation: float 6s ease-in-out infinite;
-}
-
-.laptop-image {
-  animation: float 6s ease-in-out infinite;
-} */
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
+  justify-self: end;
 }
 
 
@@ -120,15 +84,6 @@
     grid-template-columns: 1fr;
     gap: 3rem;
     text-align: center;
-  }
-
-  .hero-graphic {
-    width: 300px;
-    height: 300px;
-  }
-  
-  .hero-graphic .macbook-3d-container {
-    min-height: 300px;
   }
 }
 
@@ -147,15 +102,6 @@
 
   .hero-actions {
     justify-content: center;
-  }
-
-  .hero-graphic {
-    width: 250px;
-    height: 250px;
-  }
-  
-  .hero-graphic .macbook-3d-container {
-    min-height: 250px;
   }
 }
 
@@ -180,14 +126,5 @@
   .hero-actions .btn {
     width: 100%;
     max-width: 300px;
-  }
-
-  .hero-graphic {
-    width: 200px;
-    height: 200px;
-  }
-  
-  .hero-graphic .macbook-3d-container {
-    min-height: 200px;
   }
 }

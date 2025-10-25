@@ -1,0 +1,171 @@
+/* Device Stack Styles */
+.device-stack {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.device-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.device {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.device-image {
+  object-fit: contain;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
+}
+
+/* Laptop - Bottom layer, largest, positioned to the left with slide-in animation from left */
+.laptop-device {
+  z-index: 1;
+  transform: translateX(-120px) translateY(0px);
+  animation:  1s ease-out both;
+}
+
+.laptop-image {
+  width: 700px;
+  height: auto;
+}
+
+/* Tablet - Middle layer, medium size, positioned overlapping laptop's bottom right with slide-in animation from bottom */
+.tablet-device {
+  top: 10px; /* Laptop'tan biraz aşağıda */
+  left: 150px; /* Laptop'tan sağda */
+  z-index: 2;
+  position:relative;
+  transform: translateX(-20px) translateY(40px);
+  animation: slideInFromBottom 1s ease-out both;
+}
+
+.tablet-image {
+ 
+  width: 250px;
+  height: auto;
+}
+
+/* Phone - Top layer, smallest, positioned overlapping tablet's bottom right with slide-in animation from right */
+.phone-device {
+  top: 60px; /* Laptop'tan biraz aşağıda */
+  left: 250px;
+  z-index: 3;
+  transform: translateX(60px) translateY(80px);
+  animation: slideInFromRight 1s ease-out both;
+}
+
+.phone-image {
+  width: 130px;
+  height: auto;
+}
+
+/* Animation keyframes */
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-400px) translateY(0px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-120px) translateY(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromBottom {
+  0% {
+    transform: translateX(-20px) translateY(200px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-20px) translateY(40px);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(300px) translateY(80px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(60px) translateY(80px);
+    opacity: 1;
+  }
+}
+
+/* Animation removed - devices stay static */
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .device-container {
+    width: 400px;
+    height: 400px;
+  }
+  
+  .laptop-image {
+    width: 300px;
+  }
+  
+  .tablet-image {
+    width: 220px;
+  }
+  
+  .phone-image {
+    width: 120px;
+  }
+  
+  .laptop-device {
+    transform: translateX(-80px) translateY(0px);
+  }
+  
+  .tablet-device {
+    transform: translateX(-15px) translateY(25px);
+  }
+  
+  .phone-device {
+    transform: translateX(40px) translateY(50px);
+  }
+}
+
+@media (max-width: 768px) {
+  .device-container {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .laptop-image {
+    width: 220px;
+  }
+  
+  .tablet-image {
+    width: 160px;
+  }
+  
+  .phone-image {
+    width: 90px;
+  }
+  
+  .laptop-device {
+    transform: translateX(-50px) translateY(0px);
+  }
+  
+  .tablet-device {
+    transform: translateX(-10px) translateY(15px);
+  }
+  
+  .phone-device {
+    transform: translateX(25px) translateY(30px);
+  }
+}
