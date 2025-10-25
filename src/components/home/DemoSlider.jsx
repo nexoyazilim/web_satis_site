@@ -6,73 +6,73 @@ const DemoSlider = () => {
     {
       id: 1,
       title: "E-Ticaret Sitesi",
-      image: "/otelmockup.png",
+      image: `${import.meta.env.BASE_URL}otelmockup.png`,
       description: "Modern e-ticaret platformu"
     },
     {
       id: 2,
       title: "Kurumsal Web Sitesi",
-      image: "/otelmockup.png",
+      image: `${import.meta.env.BASE_URL}otelmockup.png`,
       description: "Profesyonel kurumsal tasarım"
     },
     {
       id: 3,
       title: "Restoran Sitesi",
-      image: "/otelmockup.png",
+      image: `${import.meta.env.BASE_URL}otelmockup.png`,
       description: "Lezzetli menüler ve rezervasyon"
     },
     {
       id: 4,
       title: "Blog Sitesi",
-      image: "/otelmockup.png",
+      image: `${import.meta.env.BASE_URL}otelmockup.png`,
       description: "Kişisel blog ve içerik yönetimi"
     },
     {
       id: 5,
       title: "Portfolyo Sitesi",
-      image: "/otelmockup.png",
+      image: `${import.meta.env.BASE_URL}otelmockup.png`,
       description: "Yaratıcı portfolyo gösterimi"
     },
     {
       id: 6,
       title: "Spa & Wellness",
-      image: "/otelmockup.png",
+      image: `${import.meta.env.BASE_URL}otelmockup.png`,
       description: "Rahatlatıcı spa deneyimi"
     },
     {
       id: 7,
       title: "Emlak Sitesi",
-      image: "/otelmockup.png",
+      image: `${import.meta.env.BASE_URL}otelmockup.png`,
       description: "Emlak ilanları ve arama"
     },
     {
       id: 8,
       title: "Eğitim Platformu",
-      image: "/otelmockup.png",
+      image: `${import.meta.env.BASE_URL}otelmockup.png`,
       description: "Online eğitim ve kurslar"
     },
     {
       id: 9,
       title: "Seyahat Sitesi",
-      image: "/otelmockup.png",
+      image: `${import.meta.env.BASE_URL}otelmockup.png`,
       description: "Seyahat rehberi ve rezervasyon"
     },
     {
       id: 10,
       title: "Teknoloji Blogu",
-      image: "/otelmockup.png",
+      image: `${import.meta.env.BASE_URL}otelmockup.png`,
       description: "Teknoloji haberleri ve analiz"
     },
     {
       id: 11,
       title: "Fitness Merkezi",
-      image: "/otelmockup.png",
+      image: `${import.meta.env.BASE_URL}otelmockup.png`,
       description: "Spor salonu ve fitness programları"
     },
     {
       id: 12,
       title: "Moda Mağazası",
-      image: "/otelmockup.png",
+      image: `${import.meta.env.BASE_URL}otelmockup.png`,
       description: "Trend moda ve stil önerileri"
     }
   ]

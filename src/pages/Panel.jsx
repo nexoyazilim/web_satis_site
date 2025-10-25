@@ -28,8 +28,14 @@ const Panel = () => {
       setUser(userData)
 
       // Kullanıcının sitelerini getir
-      const userSites = await siteApi.getMySites()
-      setSites(userSites)
+      try {
+        const userSites = await siteApi.getMySites()
+        setSites(Array.isArray(userSites) ? userSites : [])
+      } catch (siteError) {
+        // Site API'si hata verirse boş array kullan (yeni kullanıcı olabilir)
+        console.warn('Siteler yüklenemedi (muhtemelen yeni kullanıcı):', siteError)
+        setSites([])
+      }
     } catch (err) {
       setError('Veriler yüklenirken bir hata oluştu')
       console.error('Panel yükleme hatası:', err)
@@ -109,7 +115,7 @@ const Panel = () => {
                     </div>
                     <div className="site-info">
                       <h3 className="site-title">{site.title}</h3>
-                      <p className="site-slug">{site.slug}.nexoyazilim.com</p>
+                      <p className="site-slug">{site.custom_domain || `${site.slug}.nexoyazilim.com`}</p>
                     </div>
                   </div>
 
@@ -144,7 +150,7 @@ const Panel = () => {
                       Admin Paneline Git
                     </button>
                     <a 
-                      href={`https://${site.slug}.nexoyazilim.com`}
+                      href={site.custom_domain ? `https://${site.custom_domain}` : `https://${site.slug}.nexoyazilim.com`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-view"

@@ -15,8 +15,11 @@ export const siteApi = {
   getMySites: async () => {
     try {
       const response = await apiClient.get('/api/sites/my');
-      return response.data.data;
+      console.log('Sites API Response:', response.data);
+      // Backend'den gelen format: { success, count, sites: [...] }
+      return response.data.sites || response.data.data || [];
     } catch (error) {
+      console.error('Sites API Error:', error);
       throw error.response?.data || { message: 'Siteler yüklenemedi' };
     }
   },

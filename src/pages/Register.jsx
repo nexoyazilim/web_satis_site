@@ -47,8 +47,9 @@ const Register = () => {
       // Panel sayfasına yönlendir
       window.location.href = '/panel'
     } catch (err) {
-      setError(err.message || 'Kayıt başarısız. Lütfen tekrar deneyin.')
-      console.error('Kayıt hatası:', err)
+      console.error('Kayıt hatası DETAY:', err)
+      console.error('Error response:', err.response?.data)
+      setError(err.message || err.response?.data?.message || 'Kayıt başarısız. Lütfen tekrar deneyin.')
     } finally {
       setLoading(false)
     }

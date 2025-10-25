@@ -18,7 +18,7 @@ function MacBookModel() {
     
     // Önce GLTF dosyasını yüklemeyi dene
     loader.load(
-      '/macbook.gltf',
+      `${import.meta.env.BASE_URL}macbook.gltf`,
       (gltf) => {
         setModel(gltf.scene)
         setLoading(false)
@@ -28,7 +28,7 @@ function MacBookModel() {
         console.log('GLTF yüklenemedi, GLB dosyasını deniyor:', error)
         // GLB dosyasını dene
         loader.load(
-          '/macbook.glb',
+          `${import.meta.env.BASE_URL}macbook.glb`,
           (gltf) => {
             setModel(gltf.scene)
             setLoading(false)

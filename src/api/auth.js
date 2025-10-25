@@ -4,25 +4,44 @@ export const authApi = {
   // Kayıt ol
   register: async (email, password, fullName) => {
     try {
+      console.log('Register isteği gönderiliyor:', { email, fullName });
       const response = await apiClient.post('/api/auth/register', {
         email,
         password,
         fullName
       });
 
+      console.log('Register yanıtı:', response.data);
+      
       // Token'ı kaydet
-      const { token, user, sites } = response.data.data;
-      localStorage.setItem('jwt_token', token);
-      localStorage.setItem('user', JSON.stringify(user));
+      const { token, user, sites } = response.data.data || response.data;
+      
+      if (token) {
+        localStorage.setItem('jwt_token', token);
+      }
+      
+      if (user) {
+        localStorage.setItem('user', JSON.stringify(user));
+      }
       
       // Kullanıcının ilk sitesini aktif yap (varsa)
-      if (sites && sites.length > 0) {
+      if (sites && Array.isArray(sites) && sites.length > 0) {
         localStorage.setItem('active_site_id', sites[0].site_id);
+      } else {
+        // Site yoksa active_site_id'yi temizle
+        localStorage.removeItem('active_site_id');
       }
 
       return response.data;
     } catch (error) {
-      throw error.response?.data || { message: 'Kayıt başarısız' };
+      console.error('Auth API Register Hatası:', {
+        message: error.message,
+        response: error.response,
+        status: error.response?.status,
+        data: error.response?.data,
+        request: error.request
+      });
+      throw error.response?.data || { message: error.message || 'Kayıt başarısız' };
     }
   },
 
@@ -35,13 +54,22 @@ export const authApi = {
       });
 
       // Token'ı kaydet
-      const { token, user, sites } = response.data.data;
-      localStorage.setItem('jwt_token', token);
-      localStorage.setItem('user', JSON.stringify(user));
+      const { token, user, sites } = response.data.data || response.data;
+      
+      if (token) {
+        localStorage.setItem('jwt_token', token);
+      }
+      
+      if (user) {
+        localStorage.setItem('user', JSON.stringify(user));
+      }
 
       // Kullanıcının ilk sitesini aktif yap (varsa)
-      if (sites && sites.length > 0) {
+      if (sites && Array.isArray(sites) && sites.length > 0) {
         localStorage.setItem('active_site_id', sites[0].site_id);
+      } else {
+        // Site yoksa active_site_id'yi temizle
+        localStorage.removeItem('active_site_id');
       }
 
       return response.data;
