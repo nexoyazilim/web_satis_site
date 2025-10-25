@@ -40,7 +40,8 @@ const Navbar = () => {
           </nav>
 
           <div className="navbar-actions">
-            <Link to="/contact" className="btn btn-primary">Hemen Başla</Link>
+            <Link to="/login" className="btn btn-login">Giriş Yap</Link>
+            <Link to="/register" className="btn btn-primary">Kayıt Ol</Link>
             <button 
               className={`menu-toggle ${isMenuOpen ? 'active' : ''}`}
               onClick={toggleMenu}
