@@ -3,6 +3,7 @@ import HeroSection from '../components/home/HeroSection'
 import DemoSlider from '../components/home/DemoSlider'
 import FeaturedServices from '../components/home/FeaturedServices'
 import WhyChooseUs from '../components/home/WhyChooseUs'
+import Technologies from '../components/home/Technologies'
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <DemoSlider />
       <FeaturedServices />
       <WhyChooseUs />
+      <Technologies />
     </div>
   )
 }

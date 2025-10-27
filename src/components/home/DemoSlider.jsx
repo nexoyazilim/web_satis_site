@@ -1,6 +1,74 @@
-import React from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 
 const DemoSlider = () => {
+  const [isPaused, setIsPaused] = useState(false)
+  const [isDragging, setIsDragging] = useState(false)
+  const [startX, setStartX] = useState(0)
+  const translateX = useRef(0)
+  const sliderRef = useRef(null)
+  const animationRef = useRef(null)
+  const [, forceUpdate] = useState(0)
+
+  const updateTranslate = (newValue) => {
+    translateX.current = newValue
+    forceUpdate(prev => prev + 1)
+  }
+
+  useEffect(() => {
+    if (isPaused || isDragging) {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current)
+      }
+      return
+    }
+
+    let lastTime = performance.now()
+    
+    const animate = (currentTime) => {
+      const deltaTime = currentTime - lastTime
+      lastTime = currentTime
+      
+      const speed = 0.5 // px per frame
+      updateTranslate(translateX.current - speed)
+      
+      animationRef.current = requestAnimationFrame(animate)
+    }
+    
+    animationRef.current = requestAnimationFrame(animate)
+    
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current)
+      }
+    }
+  }, [isPaused, isDragging])
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true)
+    setIsPaused(true)
+    setStartX(e.clientX)
+  }
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return
+    e.preventDefault()
+    const diff = e.clientX - startX
+    updateTranslate(translateX.current + diff * 0.5)
+    setStartX(e.clientX)
+  }
+
+  const handleMouseUp = () => {
+    setIsDragging(false)
+  }
+
+  const handleMouseEnter = () => {
+    setIsPaused(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsPaused(false)
+    setIsDragging(false)
+  }
   const demoWebsites = [
     {
       id: 1,
@@ -59,8 +127,8 @@ const DemoSlider = () => {
   ]
 
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-5 bg-gray-50">
+      <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">Demo Sitelerimiz</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -68,19 +136,36 @@ const DemoSlider = () => {
           </p>
         </div>
 
-        <div className="relative overflow-hidden">
+        <div 
+          className="relative overflow-hidden px-[10px]"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-gray-50 to-transparent z-10"></div>
-          <div className="flex animate-scroll space-x-6">
+          <div 
+            ref={sliderRef}
+            className="flex space-x-6"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            style={{ 
+              cursor: isDragging ? 'grabbing' : 'grab', 
+              userSelect: 'none',
+              transform: `translateX(${translateX.current}px)`,
+              transition: 'none'
+            }}
+          >
             {/* İlk set */}
             {demoWebsites.map((website) => (
-              <div key={website.id} className="flex-shrink-0 w-80 group">
+              <div key={website.id} className="flex-shrink-0 group w-[700px]">
                 <div className="relative overflow-hidden rounded-lg shadow-lg bg-white">
-                  <div className="aspect-[4/3] overflow-hidden">
+                  <div className="bg-gray-100 w-full">
                     {website.image ? (
                       <img 
                         src={website.image} 
                         alt={website.title} 
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                     ) : (
                       <div className="w-full h-full bg-gray-200 flex items-center justify-center">
@@ -104,14 +189,14 @@ const DemoSlider = () => {
             
             {/* İkinci set (sürekli kayma için) */}
             {demoWebsites.map((website) => (
-              <div key={`duplicate-${website.id}`} className="flex-shrink-0 w-80 group">
+              <div key={`duplicate-${website.id}`} className="flex-shrink-0 w-[700px] group">
                 <div className="relative overflow-hidden rounded-lg shadow-lg bg-white">
-                  <div className="aspect-[4/3] overflow-hidden">
+                  <div className="bg-gray-100 w-full">
                     {website.image ? (
                       <img 
                         src={website.image} 
                         alt={website.title} 
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                     ) : (
                       <div className="w-full h-full bg-gray-200 flex items-center justify-center">
@@ -133,7 +218,7 @@ const DemoSlider = () => {
               </div>
             ))}
           </div>
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-gray-50 to-transparent z-10"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-[80px] bg-gradient-to-l from-gray-50 to-transparent z-10"></div>
         </div>
       </div>
     </section>

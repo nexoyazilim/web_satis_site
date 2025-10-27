@@ -46,7 +46,8 @@ const FeaturedServices = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {services.map((service, index) => (
-            <div key={index} className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+            <div key={index} className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 relative group cursor-pointer overflow-hidden hover:-translate-y-2">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"></div>
               <div className="text-gray-800 mb-6">
                 {service.icon}
               </div>
