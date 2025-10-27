@@ -47,7 +47,7 @@ const HeroSection = () => {
   }, [currentCharIndex, currentText, isDeleting, texts, currentTextIndex])
   
   return (
-    <section className="lg:py-[120px] px-5 bg-cover bg-center bg-no-repeat min-h-screen flex items-start relative" style={{backgroundImage: 'url(/5523726.jpg)'}} id="anasayfa">
+    <section className="lg:py-[120px] px-5 bg-cover bg-center bg-no-repeat min-h-screen flex items-start relative" style={{backgroundImage: 'url(/headers/home.jpg)'}} id="anasayfa">
       <div className="absolute inset-0 bg-white/40"></div>
       <div className="relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 lg:gap-8 xl:gap-12">
