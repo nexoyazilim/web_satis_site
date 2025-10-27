@@ -63,7 +63,10 @@ const ServicesPricing = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {pricingPlans.map((plan, index) => (
-            <div key={index} className={`relative bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ${plan.popular ? 'ring-2 ring-gray-800' : ''}`}>
+            <div key={index} className={`group relative bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-105 transition-all duration-300 ${!plan.popular ? 'overflow-hidden' : ''} ${plan.popular ? 'ring-2 ring-gray-800' : ''}`}>
+              {!plan.popular && (
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-gray-800 group-hover:w-full transition-all duration-500"></div>
+              )}
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                   <span className="bg-gray-800 text-white px-4 py-2 rounded-full text-sm font-medium">En Popüler</span>

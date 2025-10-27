@@ -78,27 +78,81 @@ const Portfolio = () => {
 
   return (
     <div>
-      <div className="py-20 bg-gradient-to-br from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-5xl font-bold text-gray-900 mb-6">Demo Siteler</h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">Farklı sektörlerden örnek web sitelerimizi inceleyin</p>
+      <section className="relative h-screen overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img 
+            src={`${import.meta.env.BASE_URL}headers/demo.PNG`}
+            alt="Portfolio Background" 
+            className="w-full h-full object-cover opacity-100"
+          />
+        </div>
+        
+        <div className="max-w-full h-full mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex items-center justify-center">
+          <div className="text-center w-full -mt-32">
+            <div className="inline-flex items-center justify-center p-2 bg-white/80 backdrop-blur-sm rounded-full mb-6">
+              <span className="px-4 py-1 text-sm font-medium text-gray-900">Referans Çalışmalarımız</span>
+            </div>
+            
+            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+              Demo Siteler
+              <span className="block mt-2 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                İlham Alın
+              </span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed mb-8">
+              Farklı sektörlerden hazırladığımız profesyonel demo web sitelerini inceleyin. 
+              Her bir tasarım, işletmenizin ihtiyaçlarına göre özelleştirilebilir ve 
+              kısa sürede hayata geçirilebilir.
+            </p>
+            
+            <div className="flex flex-wrap justify-center gap-8 text-gray-900">
+              <div className="flex items-center gap-2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-800">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                  <polyline points="22,4 12,14.01 9,11.01"/>
+                </svg>
+                <span className="font-medium">SEO Uyumlu</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-800">
+                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                  <line x1="12" y1="18" x2="12" y2="18"/>
+                </svg>
+                <span className="font-medium">Mobil Uyumlu</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-800">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+                <span className="font-medium">Hızlı Yükleme</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-800">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                  <path d="M2 17l10 5 10-5"/>
+                  <path d="M2 12l10 5 10-5"/>
+                </svg>
+                <span className="font-medium">Modern Tasarım</span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
       
-      <div className="py-20 bg-white">
+      <div className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {demoWebsites.map((website) => (
               <div key={website.id} className="group">
-                <div className="relative overflow-hidden rounded-lg shadow-lg bg-white">
-                  <div className="aspect-[4/3] overflow-hidden">
+                <div className="relative overflow-hidden rounded-lg shadow-lg bg-white hover:shadow-2xl transition-shadow duration-300">
+                  <div className="bg-gray-100 w-full">
                     {website.image ? (
                       <img 
                         src={website.image} 
                         alt={website.title} 
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                     ) : (
                       <div className="w-full h-full bg-gray-200 flex items-center justify-center">

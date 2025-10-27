@@ -1,16 +1,18 @@
 import React from 'react'
 import AboutHeader from '../components/about/AboutHeader'
-import AboutStats from '../components/about/AboutStats'
+import AboutMissionVision from '../components/about/AboutMissionVision'
 import AboutFeatures from '../components/about/AboutFeatures'
-import AboutTeam from '../components/about/AboutTeam'
+import AboutProcess from '../components/about/AboutProcess'
+import AboutValues from '../components/about/AboutValues'
 
 const About = () => {
   return (
     <div>
       <AboutHeader />
-      <AboutStats />
+      <AboutMissionVision />
       <AboutFeatures />
-      <AboutTeam />
+      <AboutProcess />
+      <AboutValues />
     </div>
   )
 }
