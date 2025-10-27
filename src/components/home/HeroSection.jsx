@@ -1,57 +1,66 @@
 import React, { useState, useEffect } from 'react'
-import '../../css/home/HeroSection.css'
-import MacBook3D from './MacBook3D'
+import DeviceStack from './DeviceStack'
 
 const HeroSection = () => {
-  const [displayText1, setDisplayText1] = useState('')
-  const [displayText2, setDisplayText2] = useState('')
-  const [displayText3, setDisplayText3] = useState('')
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [displayText, setDisplayText] = useState('')
+  const [currentTextIndex, setCurrentTextIndex] = useState(0)
+  const [currentCharIndex, setCurrentCharIndex] = useState(0)
+  const [isDeleting, setIsDeleting] = useState(false)
   
-  const text1 = "Modern Web Tasarımı ile "
-  const text2 = "Markanızı"
-  const text3 = " Öne Çıkarın"
+  const texts = [
+    "Modern Web Tasarımı ile Markanızı Öne Çıkarın",
+    "Mobil Uyumlu ve Hızlı Web Çözümleri",
+    "Profesyonel E-Ticaret Platformları"
+  ]
+  
+  const currentText = texts[currentTextIndex]
   
   useEffect(() => {
-    if (currentIndex < text1.length) {
+    const typeSpeed = isDeleting ? 50 : 80
+    const delayAfterComplete = 3000 // 3 saniye
+    
+    if (!isDeleting && currentCharIndex < currentText.length) {
+      // Yazma işlemi
       const timeout = setTimeout(() => {
-        setDisplayText1(prev => prev + text1[currentIndex])
-        setCurrentIndex(prev => prev + 1)
-      }, 50)
+        setDisplayText(currentText.substring(0, currentCharIndex + 1))
+        setCurrentCharIndex(prev => prev + 1)
+      }, typeSpeed)
       return () => clearTimeout(timeout)
-    } else if (currentIndex < text1.length + text2.length) {
+    } else if (!isDeleting && currentCharIndex === currentText.length) {
+      // Yazma tamamlandı, bekle
       const timeout = setTimeout(() => {
-        setDisplayText2(prev => prev + text2[currentIndex - text1.length])
-        setCurrentIndex(prev => prev + 1)
-      }, 50)
+        setIsDeleting(true)
+      }, delayAfterComplete)
       return () => clearTimeout(timeout)
-    } else if (currentIndex < text1.length + text2.length + text3.length) {
+    } else if (isDeleting && currentCharIndex > 0) {
+      // Silme işlemi
       const timeout = setTimeout(() => {
-        setDisplayText3(prev => prev + text3[currentIndex - text1.length - text2.length])
-        setCurrentIndex(prev => prev + 1)
-      }, 100)
+        setDisplayText(currentText.substring(0, currentCharIndex - 1))
+        setCurrentCharIndex(prev => prev - 1)
+      }, typeSpeed)
       return () => clearTimeout(timeout)
+    } else if (isDeleting && currentCharIndex === 0) {
+      // Silme tamamlandı, sonraki metne geç
+      setIsDeleting(false)
+      setCurrentTextIndex(prev => (prev + 1) % texts.length)
     }
-  }, [currentIndex, text1, text2, text3])
+  }, [currentCharIndex, currentText, isDeleting, texts, currentTextIndex])
   
   return (
-    <section className="hero-section" id="anasayfa">
-      <div className="container">
-        <div className="hero-content">
-          <div className="hero-text">
-            <h1 className="hero-title">
-              <span className="typewriter-text">
-                {displayText1}
-                <span className="highlight">{displayText2}</span>
-                {displayText3}
-                <span className="cursor">|</span>
-              </span>
+    <section className="lg:py-[120px] px-5 bg-cover bg-center bg-no-repeat min-h-screen flex items-start relative" style={{backgroundImage: 'url(/5523726.jpg)'}} id="anasayfa">
+      <div className="absolute inset-0 bg-white/40"></div>
+      <div className="relative z-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 lg:gap-8 xl:gap-12">
+          <div className=" w-full px-10">
+            <h1 className="px-[60px] text-3xl lg:text-[41px] font-bold leading-tight mb-0 text-black relative z-0 drop-shadow-lg">
+              {displayText}
+              <span className="animate-pulse ml-1">|</span>
             </h1>
-            <p className="hero-description">
-              Profesyonel web tasarımı ve geliştirme hizmetleri ile işletmenizi dijital dünyada güçlendirin. 
+            <p className="py-5 px-[60px] text-xl leading-relaxed text-gray-800 mb-0 relative z-0 drop-shadow-lg">
+               Profesyonel web tasarımı ve geliştirme hizmetleri ile işletmenizi dijital dünyada güçlendirin. 
               Modern, hızlı ve kullanıcı dostu web siteleri tasarlıyoruz.
             </p>
-            <div className="hero-actions">
+            <div className="px-[60px] flex gap-4 flex-wrap relative z-0 mt-0">
               <a href="/services" className="btn btn-primary">
                 Projenizi Başlatın
               </a>
@@ -60,10 +69,8 @@ const HeroSection = () => {
               </a>
             </div>
           </div>
-          <div className="hero-image">
-            <div className="hero-graphic">
-              <MacBook3D />
-            </div>
+          <div className="flex justify-start items-center relative justify-self-start z-20">
+            <DeviceStack />
           </div>
         </div>
       </div>

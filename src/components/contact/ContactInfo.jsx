@@ -1,5 +1,4 @@
 import React from 'react'
-import '../../css/contact/ContactInfo.css'
 
 const ContactInfo = () => {
   const contactMethods = [
@@ -41,31 +40,33 @@ const ContactInfo = () => {
   ]
 
   return (
-    <section className="contact-info section">
-      <div className="container">
-        <div className="contact-info-content">
-          <div className="info-text">
-            <h2>Bize Ulaşın</h2>
-            <p>
-              Web tasarımı ve geliştirme projeleriniz için uzman ekibimizle iletişime geçin. 
-              Size özel çözümler geliştirmek için buradayız.
-            </p>
-            <p>
-              Projeniz hakkında detaylı bilgi almak veya ücretsiz danışmanlık için 
-              aşağıdaki iletişim bilgilerini kullanabilirsiniz.
-            </p>
+    <section className="py-20 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">Bize Ulaşın</h2>
+            <div className="space-y-4 text-gray-600">
+              <p>
+                Web tasarımı ve geliştirme projeleriniz için uzman ekibimizle iletişime geçin. 
+                Size özel çözümler geliştirmek için buradayız.
+              </p>
+              <p>
+                Projeniz hakkında detaylı bilgi almak veya ücretsiz danışmanlık için 
+                aşağıdaki iletişim bilgilerini kullanabilirsiniz.
+              </p>
+            </div>
           </div>
           
-          <div className="contact-methods">
+          <div className="space-y-6">
             {contactMethods.map((method, index) => (
-              <a key={index} href={method.link} className="contact-method">
-                <div className="contact-icon">
+              <a key={index} href={method.link} className="flex items-start space-x-4 p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div className="text-gray-800 mt-1">
                   {method.icon}
                 </div>
-                <div className="contact-details">
-                  <h4>{method.title}</h4>
-                  <p className="contact-content">{method.content}</p>
-                  <p className="contact-description">{method.description}</p>
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-1">{method.title}</h4>
+                  <p className="text-gray-900 font-medium mb-1">{method.content}</p>
+                  <p className="text-gray-600 text-sm">{method.description}</p>
                 </div>
               </a>
             ))}

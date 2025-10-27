@@ -6,7 +6,7 @@ import ContactMap from '../components/contact/ContactMap'
 
 const Contact = () => {
   return (
-    <div className="contact-page">
+    <div>
       <ContactHeader />
       <ContactInfo />
       <ContactForm />

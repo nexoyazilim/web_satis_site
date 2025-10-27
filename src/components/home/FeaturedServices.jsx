@@ -1,5 +1,4 @@
 import React from 'react'
-import '../../css/home/FeaturedServices.css'
 
 const FeaturedServices = () => {
   const services = [
@@ -36,26 +35,27 @@ const FeaturedServices = () => {
   ]
 
   return (
-    <section className="featured-services section">
-      <div className="container">
-        <div className="services-header text-center">
-          <h2 className="section-title">Hizmetlerimiz</h2>
-          <p className="section-subtitle">
+    <section className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">Hizmetlerimiz</h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             İşletmenizin dijital ihtiyaçlarını karşılamak için kapsamlı hizmetler sunuyoruz.
           </p>
         </div>
         
-        <div className="services-grid">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {services.map((service, index) => (
-            <div key={index} className="service-card">
-              <div className="service-icon">
+            <div key={index} className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 relative group cursor-pointer overflow-hidden hover:-translate-y-2">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"></div>
+              <div className="text-gray-800 mb-6">
                 {service.icon}
               </div>
-              <h3 className="service-title">{service.title}</h3>
-              <p className="service-description">{service.description}</p>
-              <a href="/services" className="service-link">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">{service.title}</h3>
+              <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
+              <a href="/services" className="inline-flex items-center text-gray-800 hover:text-black font-medium transition-colors">
                 Detaylı Bilgi
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="ml-2">
                   <line x1="7" y1="17" x2="17" y2="7"/>
                   <polyline points="7,7 17,7 17,17"/>
                 </svg>
@@ -64,7 +64,7 @@ const FeaturedServices = () => {
           ))}
         </div>
         
-        <div className="services-cta text-center">
+        <div className="text-center">
           <a href="/services" className="btn btn-primary">
             Tüm Hizmetleri Gör
           </a>

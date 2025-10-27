@@ -6,7 +6,7 @@ import ServicesPricing from '../components/services/ServicesPricing'
 
 const Services = () => {
   return (
-    <div className="services-page">
+    <div>
       <ServicesHeader />
       <ServicesGrid />
       <ServicesProcess />

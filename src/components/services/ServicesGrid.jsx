@@ -1,6 +1,5 @@
 import React from 'react'
 import ServiceCard from './ServiceCard'
-import '../../css/services/ServicesGrid.css'
 
 const ServicesGrid = () => {
   const services = [
@@ -75,9 +74,9 @@ const ServicesGrid = () => {
   ]
 
   return (
-    <section className="services-grid section">
-      <div className="container">
-        <div className="services-grid-content">
+    <section className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <ServiceCard key={index} service={service} />
           ))}
