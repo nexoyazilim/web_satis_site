@@ -53,9 +53,9 @@ const Panel = () => {
   const handleSiteAccess = (siteId, siteTitle) => {
     // Aktif site'yi değiştir
     siteApi.setActiveSite(siteId)
-    alert(`${siteTitle} admin paneline erişiliyor...`)
-    // Burada gerçek admin panel sayfasına yönlendirebilirsiniz
-    // window.location.href = `/admin/${siteId}`
+    
+    // Blog yönetimi sayfasına yönlendir
+    window.location.href = `/admin/${siteId}`
   }
 
   if (loading) {
@@ -80,6 +80,12 @@ const Panel = () => {
               <p className="panel-subtitle">Satın aldığınız siteleri yönetin</p>
             </div>
             <div className="panel-header-right">
+              <button 
+                onClick={() => window.location.href = '/change-password'} 
+                className="btn-change-password"
+              >
+                Şifre Değiştir
+              </button>
               <button onClick={handleLogout} className="btn-logout">
                 Çıkış Yap
               </button>

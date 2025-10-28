@@ -90,7 +90,7 @@ const Login = () => {
                   />
                   <span>Beni Hatırla</span>
                 </label>
-                <a href="#" className="forgot-password">Şifremi Unuttum?</a>
+                <a href="/forgot-password" className="forgot-password">Şifremi Unuttum?</a>
               </div>
 
               <button type="submit" className="btn-submit" disabled={loading}>

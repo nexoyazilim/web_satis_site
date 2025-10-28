@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 // Backend API Base URL
-// .env dosyasında VITE_API_URL tanımlanmalı
-const API_BASE_URL = import.meta.env.VITE_API_URL;
+// Development'ta Vite proxy kullan, production'da gerçek URL
+const API_BASE_URL = import.meta.env.DEV ? '/api' : (import.meta.env.VITE_API_URL || 'https://nexoyazilim-api.us-east-1.elasticbeanstalk.com/api');
 
 // Axios client oluştur
 const apiClient = axios.create({
@@ -24,7 +24,7 @@ apiClient.interceptors.request.use(
 
     // Aktif site ID ekle (multi-tenant için)
     const siteId = localStorage.getItem('active_site_id');
-    if (siteId) {
+    if (siteId && !config.headers['x-site-id']) {
       config.headers['x-site-id'] = siteId;
     }
 
@@ -35,7 +35,7 @@ apiClient.interceptors.request.use(
   }
 );
 
-// Response Interceptor - Hata yönetimi
+// Response Interceptor - Hata yönetimi (GEÇİCİ OLARAK DEVRE DIŞI)
 apiClient.interceptors.response.use(
   (response) => {
     // Başarılı response'u döndür
@@ -44,11 +44,20 @@ apiClient.interceptors.response.use(
   (error) => {
     // 401 Unauthorized - Token geçersiz/expired
     if (error.response?.status === 401) {
-      // Token'ı temizle ve login sayfasına yönlendir
-      localStorage.removeItem('jwt_token');
-      localStorage.removeItem('user');
-      localStorage.removeItem('active_site_id');
-      window.location.href = '/login';
+      console.error('🔴 401 HATASI:', JSON.stringify(error.response?.data, null, 2));
+      console.error('🔴 REQUEST URL:', error.config?.url);
+      console.error('🔴 REQUEST HEADERS:', JSON.stringify(error.config?.headers, null, 2));
+      console.error('🔴 REQUEST METHOD:', error.config?.method);
+      console.error('🔴 LOCALSTORAGE:', {
+        token: localStorage.getItem('jwt_token'),
+        user: localStorage.getItem('user'),
+        siteId: localStorage.getItem('active_site_id')
+      });
+      // GEÇİCİ OLARAK YÖNLENDİRMEYİ KAPATTIK
+      // localStorage.removeItem('jwt_token');
+      // localStorage.removeItem('user');
+      // localStorage.removeItem('active_site_id');
+      // window.location.href = '/login';
     }
 
     // 403 Forbidden - Yetki yok
