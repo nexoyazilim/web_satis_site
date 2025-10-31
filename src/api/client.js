@@ -1,16 +1,17 @@
 import axios from 'axios';
 
 // Backend API Base URL
-// Development'ta Vite proxy kullan, production'da gerçek URL
-const API_BASE_URL = import.meta.env.DEV ? '/api' : (import.meta.env.VITE_API_URL || 'https://nexoyazilim-api.us-east-1.elasticbeanstalk.com/api');
+// Development: Vite proxy '/api'
+// Production: VITE_API_URL varsa onu kullan; yoksa default gerçek URL
+const API_BASE_URL = import.meta.env.DEV
+  ? '/api'
+  : (import.meta.env.VITE_API_URL || 'https://nexoyazilim-api.us-east-1.elasticbeanstalk.com/api');
 
 // Axios client oluştur
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
   timeout: 10000, // 10 saniye
-  headers: {
-    'Content-Type': 'application/json'
-  }
+  // Content-Type'ı varsayılan olarak set etme; axios veri tipine göre belirler
 });
 
 // Request Interceptor - Her istekte token ekle
@@ -28,6 +29,18 @@ apiClient.interceptors.request.use(
       config.headers['x-site-id'] = siteId;
     }
 
+    // FormData gönderimlerinde Content-Type başlığını kaldır (boundary'yi axios/tarayıcı ekler)
+    try {
+      if (typeof FormData !== 'undefined' && config.data instanceof FormData) {
+        if (config.headers) {
+          delete config.headers['Content-Type'];
+          delete config.headers['content-type'];
+        }
+      }
+    } catch (_) {
+      // no-op
+    }
+
     return config;
   },
   (error) => {
@@ -42,6 +55,16 @@ apiClient.interceptors.response.use(
     return response;
   },
   (error) => {
+    // 400-499 hata gövdelerini görünür kıl
+    if (error.response) {
+      console.error('HTTP Error:', error.response.status, error.config?.url);
+      try {
+        console.error('Error body:', JSON.stringify(error.response.data));
+      } catch (_) {
+        console.error('Error body (raw):', error.response.data);
+      }
+    }
+
     // 401 Unauthorized - Token geçersiz/expired
     if (error.response?.status === 401) {
       console.error('🔴 401 HATASI:', JSON.stringify(error.response?.data, null, 2));

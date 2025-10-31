@@ -15,11 +15,44 @@ const ForgotPassword = () => {
     setLoading(true)
 
     try {
-      const result = await passwordResetService.requestPasswordReset(email)
-      setSuccess(result.message || 'Şifre sıfırlama linki e-posta adresinize gönderildi.')
-      setEmail('')
+      // Önce email kontrolü yap (enumerasyon korumalı)
+      const emailCheckResult = await passwordResetService.checkEmail(email)
+      console.log('🔵 Email Check Result:', emailCheckResult)
+
+      // exists bilgisini sağlam/paranoid şekilde çöz
+      const exists = (
+        (emailCheckResult && emailCheckResult.data && typeof emailCheckResult.data.exists !== 'undefined')
+          ? emailCheckResult.data.exists
+          : (typeof emailCheckResult?.exists !== 'undefined' ? emailCheckResult.exists : null)
+      )
+
+      // exists === false ise açık mesaj göster ve işlemi durdur
+      if (exists === false) {
+        setError('Bu e-posta adresi sistemimizde kayıtlı değildir.')
+        return
+      }
+
+      // exists === true ise şifre sıfırlama talebi gönder
+      if (exists === true || emailCheckResult?.success === true) {
+        const result = await passwordResetService.requestPasswordReset(email)
+        setSuccess(result.message || 'Şifre sıfırlama linki gönderildi.')
+        setEmail('')
+        return
+      }
+
+      // exists bilgisi yoksa ama success alanı false/undefined ise genel güvenli mesaj göstermeyelim; kullanıcıya nötr bilgi verelim
+      setError('İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.')
     } catch (err) {
-      setError(err.response?.data?.error || err.message || 'Şifre sıfırlama talebi gönderilemedi.')
+      // Email kontrolü hatası (geçersiz format vb.)
+      if (err.response?.status === 400) {
+        setError(err.response?.data?.error || 'Geçerli bir email adresi giriniz.')
+      } else if (err.response?.status === 404) {
+        // Backend kullanıcı yoksa 404 döndürüyor
+        setError('Bu e-posta adresi sistemimizde kayıtlı değildir.')
+      } else {
+        // Diğer hatalar için genel hata göster
+        setError('İşlem sırasında bir hata oluştu. Lütfen tekrar deneyin.')
+      }
       console.error('Şifre sıfırlama hatası:', err)
     } finally {
       setLoading(false)

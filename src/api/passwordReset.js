@@ -6,6 +6,24 @@ const API_BASE_URL = import.meta.env.DEV
   : (import.meta.env.VITE_API_URL || 'https://nexoyazilim-api.us-east-1.elasticbeanstalk.com');
 
 const passwordResetService = {
+  // Email kontrolü (enumerasyon korumalı)
+  async checkEmail(email) {
+    try {
+      console.log('🔵 Email Check:', { email });
+      
+      const response = await apiClient.post('/auth/email-check', {
+        email: email
+      });
+      
+      console.log('✅ Email Check Success:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('🔴 Email kontrolü başarısız:', error);
+      console.error('🔴 Error Response:', error.response?.data);
+      throw error;
+    }
+  },
+
   // Şifre sıfırlama talebi gönder
   async requestPasswordReset(email) {
     try {

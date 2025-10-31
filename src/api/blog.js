@@ -1,11 +1,10 @@
 import apiClient from './client';
+import { SITE_ID, API_KEY, DEFAULT_CUSTOMER_ID } from '../config/appConfig';
 
 // Development: Vite proxy (/api) üzerinden; Production: gerçek URL
 const API_BASE_URL = import.meta.env.DEV 
   ? '/api' 
   : (import.meta.env.VITE_API_URL || 'https://nexoyazilim-api.us-east-1.elasticbeanstalk.com');
-const API_KEY = 'dev-local-key'; // Backend'de tanımlı olan key
-const SITE_ID = '5'; // demo-veteriner
 
 const blogService = {
   // Blog ayarlarını getir
@@ -26,7 +25,7 @@ const blogService = {
   },
 
   // Blog yazılarını getir
-  async getPosts(customerId = '4', category = null) {
+  async getPosts(customerId = DEFAULT_CUSTOMER_ID, category = null) {
     try {
       const params = { customer_id: customerId };
       if (category) params.category = category;
@@ -47,7 +46,7 @@ const blogService = {
   },
 
   // Tek blog yazısı getir
-  async getPost(slug, customerId = '4') {
+  async getPost(slug, customerId = DEFAULT_CUSTOMER_ID) {
     try {
     const response = await apiClient.get(`/blog/posts/slug/${slug}`, {
         headers: {
@@ -65,7 +64,7 @@ const blogService = {
   },
 
       // Yeni blog yazısı oluştur
-      async createPost(postData, customerId = '4') {
+      async createPost(postData, customerId = DEFAULT_CUSTOMER_ID) {
         try {
           const requestBody = {
             title: postData.title,
@@ -104,7 +103,7 @@ const blogService = {
       },
 
   // Blog yazısını güncelle
-  async updatePost(id, postData, customerId = '4') {
+  async updatePost(id, postData, customerId = DEFAULT_CUSTOMER_ID) {
     try {
       const response = await apiClient.put(`/blog/posts/${id}`, {
         ...postData,
@@ -123,7 +122,7 @@ const blogService = {
   },
 
   // Blog yazısını sil
-  async deletePost(id, customerId = '4') {
+  async deletePost(id, customerId = DEFAULT_CUSTOMER_ID) {
     try {
       const response = await apiClient.delete(`/blog/posts/${id}`, {
         headers: {

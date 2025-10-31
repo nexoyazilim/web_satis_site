@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import BlogManagement from './BlogManagement';
+import GalleryManagement from './GalleryManagement';
 import '/src/css/BlogManagement.css';
 import '/src/css/AdminPanel.css';
 
@@ -8,9 +9,17 @@ const AdminPanel = () => {
   const { siteId } = useParams();
   const [siteInfo, setSiteInfo] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState('blog');
 
   useEffect(() => {
     loadSiteInfo();
+  }, [siteId]);
+
+  useEffect(() => {
+    // Site ID'yi localStorage'a kaydet
+    if (siteId) {
+      localStorage.setItem('active_site_id', siteId);
+    }
   }, [siteId]);
 
   const loadSiteInfo = async () => {
@@ -90,8 +99,17 @@ const AdminPanel = () => {
         {/* Admin Navigation */}
         <div className="admin-nav">
           <div className="admin-nav-tabs">
-            <button className="admin-tab active">
+            <button 
+              className={`admin-tab ${activeTab === 'blog' ? 'active' : ''}`}
+              onClick={() => setActiveTab('blog')}
+            >
               Blog Yönetimi
+            </button>
+            <button 
+              className={`admin-tab ${activeTab === 'gallery' ? 'active' : ''}`}
+              onClick={() => setActiveTab('gallery')}
+            >
+              Galeri Yönetimi
             </button>
             <button className="admin-tab disabled">
               Site Ayarları (Yakında)
@@ -104,7 +122,8 @@ const AdminPanel = () => {
 
         {/* Admin Content */}
         <div className="admin-content">
-          <BlogManagement />
+          {activeTab === 'blog' && <BlogManagement />}
+          {activeTab === 'gallery' && <GalleryManagement />}
         </div>
       </div>
     </div>
