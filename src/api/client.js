@@ -48,15 +48,15 @@ apiClient.interceptors.request.use(
   }
 );
 
-// Response Interceptor - Hata yönetimi (GEÇİCİ OLARAK DEVRE DIŞI)
+// Response Interceptor - Hata yönetimi
 apiClient.interceptors.response.use(
   (response) => {
     // Başarılı response'u döndür
     return response;
   },
   (error) => {
-    // 400-499 hata gövdelerini görünür kıl
-    if (error.response) {
+    // 400-499 hata gövdelerini yalnızca development'ta logla
+    if (import.meta.env.DEV && error.response) {
       console.error('HTTP Error:', error.response.status, error.config?.url);
       try {
         console.error('Error body:', JSON.stringify(error.response.data));
@@ -65,31 +65,20 @@ apiClient.interceptors.response.use(
       }
     }
 
-    // 401 Unauthorized - Token geçersiz/expired
-    if (error.response?.status === 401) {
-      console.error('🔴 401 HATASI:', JSON.stringify(error.response?.data, null, 2));
+    // 401 Unauthorized - Token geçersiz/expired (sadece DEV)
+    if (error.response?.status === 401 && import.meta.env.DEV) {
+      console.error('🔴 401 HATASI (DEV):', JSON.stringify(error.response?.data, null, 2));
       console.error('🔴 REQUEST URL:', error.config?.url);
-      console.error('🔴 REQUEST HEADERS:', JSON.stringify(error.config?.headers, null, 2));
       console.error('🔴 REQUEST METHOD:', error.config?.method);
-      console.error('🔴 LOCALSTORAGE:', {
-        token: localStorage.getItem('jwt_token'),
-        user: localStorage.getItem('user'),
-        siteId: localStorage.getItem('active_site_id')
-      });
-      // GEÇİCİ OLARAK YÖNLENDİRMEYİ KAPATTIK
-      // localStorage.removeItem('jwt_token');
-      // localStorage.removeItem('user');
-      // localStorage.removeItem('active_site_id');
-      // window.location.href = '/login';
     }
 
-    // 403 Forbidden - Yetki yok
-    if (error.response?.status === 403) {
+    // 403 Forbidden - Yetki yok (sadece DEV)
+    if (error.response?.status === 403 && import.meta.env.DEV) {
       console.error('Bu işlem için yetkiniz yok');
     }
 
-    // 429 Too Many Requests - Rate limit
-    if (error.response?.status === 429) {
+    // 429 Too Many Requests - Rate limit (sadece DEV)
+    if (error.response?.status === 429 && import.meta.env.DEV) {
       console.error('Çok fazla istek. Lütfen bekleyin.');
     }
 

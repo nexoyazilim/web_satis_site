@@ -9,17 +9,19 @@ const passwordResetService = {
   // Email kontrolü (enumerasyon korumalı)
   async checkEmail(email) {
     try {
-      console.log('🔵 Email Check:', { email });
+      if (import.meta.env.DEV) console.log('🔵 Email Check (DEV):', { email });
       
       const response = await apiClient.post('/auth/email-check', {
         email: email
       });
       
-      console.log('✅ Email Check Success:', response.data);
+      if (import.meta.env.DEV) console.log('✅ Email Check Success:', response.data);
       return response.data;
     } catch (error) {
-      console.error('🔴 Email kontrolü başarısız:', error);
-      console.error('🔴 Error Response:', error.response?.data);
+      if (import.meta.env.DEV) {
+        console.error('🔴 Email kontrolü başarısız:', error);
+        console.error('🔴 Error Response:', error.response?.data);
+      }
       throw error;
     }
   },
@@ -27,17 +29,19 @@ const passwordResetService = {
   // Şifre sıfırlama talebi gönder
   async requestPasswordReset(email) {
     try {
-      console.log('🔵 Password Reset Request:', { email });
+      if (import.meta.env.DEV) console.log('🔵 Password Reset Request (DEV):', { email });
       
       const response = await apiClient.post('/password-reset/request', {
         email: email
       });
       
-      console.log('✅ Password Reset Request Success:', response.data);
+      if (import.meta.env.DEV) console.log('✅ Password Reset Request Success:', response.data);
       return response.data;
     } catch (error) {
-      console.error('🔴 Şifre sıfırlama talebi gönderilemedi:', error);
-      console.error('🔴 Error Response:', error.response?.data);
+      if (import.meta.env.DEV) {
+        console.error('🔴 Şifre sıfırlama talebi gönderilemedi:', error);
+        console.error('🔴 Error Response:', error.response?.data);
+      }
       throw error;
     }
   },
@@ -45,15 +49,17 @@ const passwordResetService = {
   // Token doğrulama
   async validateToken(token) {
     try {
-      console.log('🔵 Token Validation:', { token });
+      if (import.meta.env.DEV) console.log('🔵 Token Validation (DEV):', { token: '***' });
       
       const response = await apiClient.get(`/password-reset/validate/${token}`);
       
-      console.log('✅ Token Validation Success:', response.data);
+      if (import.meta.env.DEV) console.log('✅ Token Validation Success:', response.data);
       return response.data;
     } catch (error) {
-      console.error('🔴 Token doğrulanamadı:', error);
-      console.error('🔴 Error Response:', error.response?.data);
+      if (import.meta.env.DEV) {
+        console.error('🔴 Token doğrulanamadı:', error);
+        console.error('🔴 Error Response:', error.response?.data);
+      }
       throw error;
     }
   },
@@ -61,18 +67,20 @@ const passwordResetService = {
   // Şifre sıfırlama
   async resetPassword(token, newPassword) {
     try {
-      console.log('🔵 Password Reset:', { token, newPassword: '***' });
+      if (import.meta.env.DEV) console.log('🔵 Password Reset (DEV):', { token: '***', newPassword: '***' });
       
       const response = await apiClient.post('/password-reset/reset', {
         token: token,
         newPassword: newPassword
       });
       
-      console.log('✅ Password Reset Success:', response.data);
+      if (import.meta.env.DEV) console.log('✅ Password Reset Success:', response.data);
       return response.data;
     } catch (error) {
-      console.error('🔴 Şifre sıfırlanamadı:', error);
-      console.error('🔴 Error Response:', error.response?.data);
+      if (import.meta.env.DEV) {
+        console.error('🔴 Şifre sıfırlanamadı:', error);
+        console.error('🔴 Error Response:', error.response?.data);
+      }
       throw error;
     }
   },
@@ -80,15 +88,17 @@ const passwordResetService = {
   // Süresi dolmuş token'ları temizle (admin)
   async cleanupExpiredTokens() {
     try {
-      console.log('🔵 Token Cleanup');
+      if (import.meta.env.DEV) console.log('🔵 Token Cleanup (DEV)');
       
       const response = await apiClient.post('/password-reset/cleanup');
       
-      console.log('✅ Token Cleanup Success:', response.data);
+      if (import.meta.env.DEV) console.log('✅ Token Cleanup Success:', response.data);
       return response.data;
     } catch (error) {
-      console.error('🔴 Token temizleme başarısız:', error);
-      console.error('🔴 Error Response:', error.response?.data);
+      if (import.meta.env.DEV) {
+        console.error('🔴 Token temizleme başarısız:', error);
+        console.error('🔴 Error Response:', error.response?.data);
+      }
       throw error;
     }
   }
