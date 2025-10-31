@@ -40,6 +40,14 @@ function AppShell() {
   const isChangePasswordRoute = pathname.startsWith('/change-password')
   const hideChrome = isPanelRoute || isAdminRoute || isChangePasswordRoute
 
+  // Sayfa değişiminde en üste kaydır
+  React.useEffect(() => {
+    // Hash navigasyonunda (/#anchor) tarayıcının default davranışını bozmayalım
+    if (!location.hash) {
+      window.scrollTo(0, 0)
+    }
+  }, [location.pathname])
+
   return (
     <div className="min-h-screen flex flex-col">
       {!hideChrome && <Navbar />}
