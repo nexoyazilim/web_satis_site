@@ -13,7 +13,12 @@ import Contact from './pages/Contact'
 import FAQ from './pages/FAQ'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
+import ChangePassword from './pages/ChangePassword'
 import Panel from './pages/Panel'
+import AdminPanel from './pages/AdminPanel'
+import BlogPreview from './pages/BlogPreview'
 
 function App() {
   // GitHub Pages için base path, development'ta boş
@@ -33,11 +38,37 @@ function App() {
             <Route path="/faq" element={<FAQ />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route 
+              path="/change-password" 
+              element={
+                <ProtectedRoute>
+                  <ChangePassword />
+                </ProtectedRoute>
+              } 
+            />
             <Route 
               path="/panel" 
               element={
                 <ProtectedRoute>
                   <Panel />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/admin/:siteId" 
+              element={
+                <ProtectedRoute>
+                  <AdminPanel />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/admin/:siteId/blog" 
+              element={
+                <ProtectedRoute>
+                  <BlogPreview />
                 </ProtectedRoute>
               } 
             />

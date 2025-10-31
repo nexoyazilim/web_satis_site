@@ -11,6 +11,47 @@
   padding: 0 2rem;
 }
 
+/* Tab Navigation */
+.panel-tabs {
+  display: flex;
+  background: white;
+  border-radius: 0.75rem 0.75rem 0 0;
+  margin: 0 1rem;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.tab-button {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
+}
+
+.tab-button:hover {
+  background-color: #f9fafb;
+  color: #374151;
+}
+
+.tab-button.active {
+  color: #3b82f6;
+  border-bottom-color: #3b82f6;
+  background-color: #f8fafc;
+}
+
+.tab-button:first-child {
+  border-radius: 0.75rem 0 0 0;
+}
+
+.tab-button:last-child {
+  border-radius: 0 0.75rem 0 0;
+}
+
 /* Panel Header */
 .panel-header {
   background: white;
@@ -377,5 +418,22 @@
     flex-direction: column;
     gap: 0.5rem;
   }
+}
+
+/* Password Change Button */
+.btn-change-password {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-change-password:hover {
+  background: #5a6fd8;
+  transform: translateY(-2px);
 }
 

@@ -5,7 +5,7 @@ export const authApi = {
   register: async (email, password, fullName) => {
     try {
       console.log('Register isteği gönderiliyor:', { email, fullName });
-      const response = await apiClient.post('/api/auth/register', {
+      const response = await apiClient.post('/auth/register', {
         email,
         password,
         fullName
@@ -48,7 +48,7 @@ export const authApi = {
   // Giriş yap
   login: async (email, password) => {
     try {
-      const response = await apiClient.post('/api/auth/login', {
+      const response = await apiClient.post('/auth/login', {
         email,
         password
       });
@@ -81,7 +81,7 @@ export const authApi = {
   // Çıkış yap
   logout: async () => {
     try {
-      await apiClient.post('/api/auth/logout');
+      await apiClient.post('/auth/logout');
     } catch (error) {
       console.error('Logout hatası:', error);
     } finally {
@@ -96,7 +96,7 @@ export const authApi = {
   // Profil bilgilerini al
   getProfile: async () => {
     try {
-      const response = await apiClient.get('/api/auth/profile');
+      const response = await apiClient.get('/auth/profile');
       return response.data.data;
     } catch (error) {
       throw error.response?.data || { message: 'Profil alınamadı' };
