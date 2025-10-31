@@ -35,6 +35,10 @@ const Navbar = () => {
               Demo Siteler
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
             </Link>
+            <Link to="/blog" className="text-gray-600 hover:text-black transition-colors font-medium relative group">
+              Blog
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
+            </Link>
             <Link to="/contact" className="text-gray-600 hover:text-black transition-colors font-medium relative group">
               İletişim
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
@@ -82,6 +86,10 @@ const Navbar = () => {
               </Link>
               <Link to="/portfolio" className="text-gray-600 hover:text-black transition-colors font-medium relative group">
                 Demo Siteler
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
+              </Link>
+              <Link to="/blog" className="text-gray-600 hover:text-black transition-colors font-medium relative group">
+                Blog
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
               </Link>
               <Link to="/contact" className="text-gray-600 hover:text-black transition-colors font-medium relative group">

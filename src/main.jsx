@@ -19,6 +19,7 @@ import ChangePassword from './pages/ChangePassword'
 import Panel from './pages/Panel'
 import AdminPanel from './pages/AdminPanel'
 import BlogPreview from './pages/BlogPreview'
+import Blog from './pages/Blog'
 
 function App() {
   // GitHub Pages için base path, development'ta boş
@@ -34,6 +35,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
             <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/login" element={<Login />} />
