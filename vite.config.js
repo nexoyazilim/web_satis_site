@@ -9,8 +9,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
-        changeOrigin: true,
+        target: 'http://nexoyazilim-api.us-east-1.elasticbeanstalk.com',        changeOrigin: true,
         secure: false,
         // strip no prefix; backend already has /api
       }

@@ -29,19 +29,19 @@ const PortfolioHero = () => {
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-5 text-gray-800">
             <div className="flex items-center gap-2">
-              <span className="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+              <span className="inline-block w-2.5 h-2.5 rounded-full bg-gray-500"></span>
               <span className="text-sm font-medium">Mobil Uyumlu</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="inline-block w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
+              <span className="inline-block w-2.5 h-2.5 rounded-full bg-gray-500"></span>
               <span className="text-sm font-medium">SEO Dostu</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="inline-block w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+              <span className="inline-block w-2.5 h-2.5 rounded-full bg-gray-500"></span>
               <span className="text-sm font-medium">Hızlı Yükleme</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="inline-block w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+              <span className="inline-block w-2.5 h-2.5 rounded-full bg-gray-500"></span>
               <span className="text-sm font-medium">Modern Tasarım</span>
             </div>
           </div>
