@@ -37,7 +37,8 @@ function AppShell() {
   const pathname = location.pathname
   const isPanelRoute = pathname.startsWith('/panel')
   const isAdminRoute = pathname.startsWith('/admin')
-  const hideChrome = isPanelRoute || isAdminRoute
+  const isChangePasswordRoute = pathname.startsWith('/change-password')
+  const hideChrome = isPanelRoute || isAdminRoute || isChangePasswordRoute
 
   return (
     <div className="min-h-screen flex flex-col">
