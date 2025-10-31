@@ -5,7 +5,7 @@ const BlogHero = () => {
     <section className="relative h-screen overflow-hidden">
       <div className="absolute inset-0 z-0 pointer-events-none">
         <img
-          src={`${import.meta.env.BASE_URL}headers/demo.PNG`}
+          src={`${import.meta.env.BASE_URL}headers/blog.jpg`}
           alt="Blog Arkaplan"
           className="w-full h-full object-cover"
         />
