@@ -103,19 +103,19 @@ const AdminPanel = () => {
               className={`admin-tab ${activeTab === 'blog' ? 'active' : ''}`}
               onClick={() => setActiveTab('blog')}
             >
-              Blog Yönetimi
+              📝 Blog Yönetimi
             </button>
             <button 
               className={`admin-tab ${activeTab === 'gallery' ? 'active' : ''}`}
               onClick={() => setActiveTab('gallery')}
             >
-              Galeri Yönetimi
+              🖼️ Galeri Yönetimi
             </button>
             <button className="admin-tab disabled">
-              Site Ayarları (Yakında)
+              ⚙️ Site Ayarları (Yakında)
             </button>
             <button className="admin-tab disabled">
-              İçerik Yönetimi (Yakında)
+              📄 İçerik Yönetimi (Yakında)
             </button>
           </div>
         </div>

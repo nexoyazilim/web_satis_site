@@ -360,19 +360,33 @@ const GalleryImageForm = ({ image, onSubmit, onCancel, loading }) => {
   };
 
   return (
-    <div className="gallery-form-modal">
-      <div className="modal-content">
-        <h3>{image ? 'Resmi Düzenle' : 'Yeni Resim Ekle'}</h3>
+    <div className="gallery-form-modal" onClick={(e) => e.target.className === 'gallery-form-modal' && onCancel()}>
+      <div className="modal-content gallery-modal-content">
+        <div className="modal-header-section">
+          <h3>{image ? '🖼️ Resmi Düzenle' : '➕ Yeni Resim Ekle'}</h3>
+          <button 
+            className="modal-close-btn"
+            onClick={onCancel}
+            disabled={loading}
+            aria-label="Kapat"
+          >
+            ×
+          </button>
+        </div>
         
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="gallery-form">
           <div className="form-group">
-            <label>Resim *</label>
+            <label htmlFor="image-upload">
+              Resim <span className="required">*</span>
+            </label>
             <input
+              id="image-upload"
               type="file"
               accept="image/*"
               onChange={handleImageChange}
               required={!image}
               disabled={loading}
+              className="form-input file-input"
             />
             {preview && (
               <div className="image-preview">
@@ -382,67 +396,104 @@ const GalleryImageForm = ({ image, onSubmit, onCancel, loading }) => {
           </div>
           
           <div className="form-group">
-            <label>Başlık *</label>
+            <label htmlFor="title">
+              Başlık <span className="required">*</span>
+            </label>
             <input
+              id="title"
               type="text"
               value={formData.title}
               onChange={(e) => setFormData({...formData, title: e.target.value})}
               required
               disabled={loading}
+              className="form-input"
+              placeholder="Resim başlığı"
             />
           </div>
           
           <div className="form-group">
-            <label>Alt Metin</label>
+            <label htmlFor="alt_text">Alt Metin</label>
             <input
+              id="alt_text"
               type="text"
               value={formData.alt_text}
               onChange={(e) => setFormData({...formData, alt_text: e.target.value})}
               disabled={loading}
+              className="form-input"
+              placeholder="Görsel için açıklayıcı metin"
             />
           </div>
           
           <div className="form-group">
-            <label>Açıklama</label>
+            <label htmlFor="description">Açıklama</label>
             <textarea
+              id="description"
               value={formData.description}
               onChange={(e) => setFormData({...formData, description: e.target.value})}
               rows="3"
               disabled={loading}
+              className="form-textarea"
+              placeholder="Resim hakkında açıklama"
             />
           </div>
           
           <div className="form-row">
             <div className="form-group">
-              <label>Sıra</label>
+              <label htmlFor="order_index">Sıra</label>
               <input
+                id="order_index"
                 type="number"
                 value={formData.order_index}
                 onChange={(e) => setFormData({...formData, order_index: parseInt(e.target.value) || 0})}
                 disabled={loading}
                 min="0"
+                className="form-input"
               />
             </div>
             
             <div className="form-group">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formData.is_published}
-                  onChange={(e) => setFormData({...formData, is_published: e.target.checked})}
-                  disabled={loading}
-                />
-                Yayınla
-              </label>
+              <label htmlFor="publish-status">Yayın Durumu</label>
+              <div className="checkbox-wrapper">
+                <label className="checkbox-label">
+                  <input
+                    id="publish-status"
+                    type="checkbox"
+                    checked={formData.is_published}
+                    onChange={(e) => setFormData({...formData, is_published: e.target.checked})}
+                    disabled={loading}
+                    className="checkbox-input"
+                  />
+                  <span className="checkbox-custom"></span>
+                  <span className="checkbox-text">
+                    {formData.is_published ? '✅ Yayında' : '📝 Taslak'}
+                  </span>
+                </label>
+              </div>
             </div>
           </div>
           
           <div className="form-actions">
-            <button type="submit" className="btn btn-primary" disabled={loading}>
-              {loading ? 'Kaydediliyor...' : (image ? 'Güncelle' : 'Ekle')}
-            </button>
-            <button type="button" onClick={onCancel} className="btn btn-secondary" disabled={loading}>
+            <button 
+              type="button" 
+              onClick={onCancel} 
+              className="btn btn-secondary" 
+              disabled={loading}
+            >
               İptal
+            </button>
+            <button 
+              type="submit" 
+              className="btn btn-primary" 
+              disabled={loading || !formData.title}
+            >
+              {loading ? (
+                <>
+                  <span className="spinner-small"></span>
+                  Kaydediliyor...
+                </>
+              ) : (
+                image ? '💾 Güncelle' : '✨ Ekle'
+              )}
             </button>
           </div>
         </form>
