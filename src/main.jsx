@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import './css/base.css'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import LoadingScreen from './components/LoadingScreen'
 import ProtectedRoute from './components/ProtectedRoute'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -34,6 +35,7 @@ function App() {
 
 function AppShell() {
   const location = useLocation()
+  const [isInitialLoading, setIsInitialLoading] = React.useState(true)
   const pathname = location.pathname
   const isPanelRoute = pathname.startsWith('/panel')
   const isAdminRoute = pathname.startsWith('/admin')
@@ -48,8 +50,15 @@ function AppShell() {
     }
   }, [location.pathname])
 
+  // İlk yükleme için loading ekranı
+  React.useEffect(() => {
+    const timer = setTimeout(() => setIsInitialLoading(false), 2000)
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <div className="min-h-screen flex flex-col">
+      {isInitialLoading && <LoadingScreen />}
       {!hideChrome && <Navbar />}
       <main className="flex-1">
         <Routes>
