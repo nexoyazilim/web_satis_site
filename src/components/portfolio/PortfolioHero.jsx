@@ -2,7 +2,7 @@ import React from 'react'
 
 const PortfolioHero = () => {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative h-screen overflow-hidden">
       <div className="absolute inset-0 z-0 pointer-events-none">
         <img
           src={`${import.meta.env.BASE_URL}headers/demo.PNG`}
@@ -12,8 +12,8 @@ const PortfolioHero = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/60 to-white"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-16 sm:pb-20">
-        <div className="text-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+        <div className="text-center w-full -mt-32">
           <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-black/5 text-gray-800 text-sm font-medium mb-5">
             Referans Çalışmalarımız
           </div>
