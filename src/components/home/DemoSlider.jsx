@@ -177,8 +177,8 @@ const DemoSlider = () => {
                         <h3 className="text-xl font-bold mb-2">{website.title}</h3>
                         <p className="text-sm mb-4">{website.description}</p>
                         <div className="space-y-2">
-                          <button className="btn btn-primary w-full">Paketleri İncele</button>
-                          <button className="btn btn-secondary w-full">Demoyu İncele</button>
+                          <button className="btn w-full bg-black text-white hover:bg-gray-800 hover:-translate-y-0.5">Paketleri İncele</button>
+                          <button className="btn w-full bg-transparent text-black border-2 border-black hover:bg-black hover:text-white">Demoyu İncele</button>
                         </div>
                       </div>
                     </div>
@@ -208,8 +208,8 @@ const DemoSlider = () => {
                         <h3 className="text-xl font-bold mb-2">{website.title}</h3>
                         <p className="text-sm mb-4">{website.description}</p>
                         <div className="space-y-2">
-                          <button className="btn btn-primary w-full">Paketleri İncele</button>
-                          <button className="btn btn-secondary w-full">Demoyu İncele</button>
+                          <button className="btn w-full bg-black text-white hover:bg-gray-800 hover:-translate-y-0.5">Paketleri İncele</button>
+                          <button className="btn w-full bg-transparent text-black border-2 border-black hover:bg-black hover:text-white">Demoyu İncele</button>
                         </div>
                       </div>
                     </div>

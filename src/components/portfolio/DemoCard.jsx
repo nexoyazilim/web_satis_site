@@ -25,10 +25,10 @@ const DemoCard = ({ title, image, description, tags = [] }) => {
             <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
             <p className="mt-1 text-sm text-gray-600 line-clamp-2">{description}</p>
             <div className="mt-4 grid grid-cols-2 gap-2">
-              <button className="btn btn-primary" aria-label={`${title} paketleri`}>
+              <button className="btn bg-black text-white hover:bg-gray-800 hover:-translate-y-0.5" aria-label={`${title} paketleri`}>
                 Paketleri İncele
               </button>
-              <button className="btn btn-secondary" aria-label={`${title} demoyu incele`}>
+              <button className="btn bg-transparent text-black border-2 border-black hover:bg-black hover:text-white" aria-label={`${title} demoyu incele`}>
                 Demoyu İncele
               </button>
             </div>

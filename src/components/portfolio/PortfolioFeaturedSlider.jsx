@@ -45,10 +45,10 @@ const PortfolioFeaturedSlider = ({ items = [] }) => {
                     <h3 className="text-base font-semibold text-gray-900">{item.title}</h3>
                     <p className="mt-1 text-sm text-gray-600 line-clamp-2">{item.description}</p>
                     <div className="mt-3 flex gap-2">
-                      <button className="btn btn-primary flex-1 text-sm py-2.5" aria-label={`${item.title} paketleri`}>
+                      <button className="btn flex-1 text-sm py-2.5 bg-black text-white hover:bg-gray-800 hover:-translate-y-0.5" aria-label={`${item.title} paketleri`}>
                         Paketleri İncele
                       </button>
-                      <button className="btn btn-secondary flex-1 text-sm py-2.5" aria-label={`${item.title} demoyu incele`}>
+                      <button className="btn flex-1 text-sm py-2.5 bg-transparent text-black border-2 border-black hover:bg-black hover:text-white" aria-label={`${item.title} demoyu incele`}>
                         Demoyu İncele
                       </button>
                     </div>
