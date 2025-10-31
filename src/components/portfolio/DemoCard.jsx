@@ -35,7 +35,7 @@ const DemoCard = ({ title, image, description, tags = [] }) => {
           </div>
         </div>
       </div>
-      <div className="absolute inset-0 rounded-2xl ring-0 group-hover:ring-1 group-hover:ring-black/5 transition-all"></div>
+      <div className="absolute inset-0 rounded-2xl ring-0 group-hover:ring-1 group-hover:ring-black/5 transition-all pointer-events-none"></div>
     </div>
   )
 }
