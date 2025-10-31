@@ -10,6 +10,8 @@ const GalleryManagement = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [dragStartIndex, setDragStartIndex] = useState(null);
+  const [confirmDeleteImageId, setConfirmDeleteImageId] = useState(null);
+  const [confirmDeleteImageTitle, setConfirmDeleteImageTitle] = useState('');
 
   // Site ID'yi localStorage'dan al
   const siteId = localStorage.getItem('active_site_id') || '5';
@@ -70,15 +72,26 @@ const GalleryManagement = () => {
     }
   };
 
-  const deleteImage = async (imageId) => {
-    if (!confirm('Bu resmi silmek istediğinizden emin misiniz?')) return;
-    
+  const requestDeleteImage = (image) => {
+    setConfirmDeleteImageId(image.id);
+    setConfirmDeleteImageTitle(image.title || '');
+  };
+
+  const cancelDeleteImage = () => {
+    setConfirmDeleteImageId(null);
+    setConfirmDeleteImageTitle('');
+  };
+
+  const confirmDeleteImage = async () => {
+    if (!confirmDeleteImageId) return;
     try {
       setLoading(true);
       setError(null);
       
-      await galleryService.deleteImage(siteId, imageId);
+      await galleryService.deleteImage(siteId, confirmDeleteImageId);
       setSuccess('Resim başarıyla silindi!');
+      setConfirmDeleteImageId(null);
+      setConfirmDeleteImageTitle('');
       fetchImages();
     } catch (error) {
       setError('Resim silinemedi: ' + error.message);
@@ -228,7 +241,7 @@ const GalleryManagement = () => {
                     </button>
                     <button 
                       className="btn btn-sm btn-danger"
-                      onClick={() => deleteImage(image.id)}
+                      onClick={() => requestDeleteImage(image)}
                       disabled={loading}
                     >
                       Sil
@@ -270,6 +283,26 @@ const GalleryManagement = () => {
           }}
           loading={loading}
         />
+      )}
+      {Boolean(confirmDeleteImageId) && (
+        <div className="modal-overlay" role="dialog" aria-modal="true">
+          <div className="modal">
+            <div className="modal-header">
+              <h3>Resmi sil</h3>
+            </div>
+            <div className="modal-body">
+              <p>
+                "{confirmDeleteImageTitle}" başlıklı resmi silmek istiyor musunuz?
+              </p>
+            </div>
+            <div className="modal-footer">
+              <button className="btn-cancel" onClick={cancelDeleteImage}>Vazgeç</button>
+              <button className="btn-confirm" onClick={confirmDeleteImage} disabled={loading}>
+                Evet, sil
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

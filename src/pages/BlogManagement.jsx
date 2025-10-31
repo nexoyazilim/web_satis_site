@@ -8,6 +8,8 @@ const BlogManagement = () => {
   const [showForm, setShowForm] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [confirmDeletePostId, setConfirmDeletePostId] = useState(null);
+  const [confirmDeletePostTitle, setConfirmDeletePostTitle] = useState('');
 
   useEffect(() => {
     fetchPosts();
@@ -76,9 +78,18 @@ const BlogManagement = () => {
     }
   };
 
-  const deletePost = async (id) => {
-    if (!confirm('Bu blog yazısını silmek istediğinizden emin misiniz?')) return;
-    
+  const requestDeletePost = (post) => {
+    setConfirmDeletePostId(post.id);
+    setConfirmDeletePostTitle(post.title || '');
+  };
+
+  const cancelDeletePost = () => {
+    setConfirmDeletePostId(null);
+    setConfirmDeletePostTitle('');
+  };
+
+  const confirmDeletePost = async () => {
+    if (!confirmDeletePostId) return;
     try {
       setLoading(true);
       setError(null);
@@ -86,8 +97,10 @@ const BlogManagement = () => {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
       const customerId = user.id || '4';
       
-      await blogService.deletePost(id, customerId);
+      await blogService.deletePost(confirmDeletePostId, customerId);
       setSuccess('Blog yazısı başarıyla silindi!');
+      setConfirmDeletePostId(null);
+      setConfirmDeletePostTitle('');
       fetchPosts();
     } catch (error) {
       setError('Blog yazısı silinemedi: ' + error.message);
@@ -171,7 +184,7 @@ const BlogManagement = () => {
                 </button>
                 <button 
                   className="btn btn-danger"
-                  onClick={() => deletePost(post.id)}
+                  onClick={() => requestDeletePost(post)}
                   disabled={loading}
                 >
                   Sil
@@ -201,6 +214,26 @@ const BlogManagement = () => {
           }}
           loading={loading}
         />
+      )}
+      {Boolean(confirmDeletePostId) && (
+        <div className="modal-overlay" role="dialog" aria-modal="true">
+          <div className="modal">
+            <div className="modal-header">
+              <h3>Blog yazısını sil</h3>
+            </div>
+            <div className="modal-body">
+              <p>
+                "{confirmDeletePostTitle}" başlıklı yazıyı silmek istiyor musunuz?
+              </p>
+            </div>
+            <div className="modal-footer">
+              <button className="btn-cancel" onClick={cancelDeletePost}>Vazgeç</button>
+              <button className="btn-confirm" onClick={confirmDeletePost} disabled={loading}>
+                Evet, sil
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
