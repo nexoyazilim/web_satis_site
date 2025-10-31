@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import './css/base.css'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -24,61 +24,73 @@ import Blog from './pages/Blog'
 function App() {
   // GitHub Pages için base path, development'ta boş
   const basename = import.meta.env.BASE_URL || '/'
-  
+
   return (
     <Router>
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-1">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/portfolio" element={<Portfolio />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
-            <Route 
-              path="/change-password" 
-              element={
-                <ProtectedRoute>
-                  <ChangePassword />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/panel" 
-              element={
-                <ProtectedRoute>
-                  <Panel />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/admin/:siteId" 
-              element={
-                <ProtectedRoute>
-                  <AdminPanel />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/admin/:siteId/blog" 
-              element={
-                <ProtectedRoute>
-                  <BlogPreview />
-                </ProtectedRoute>
-              } 
-            />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <AppShell />
     </Router>
+  )
+}
+
+function AppShell() {
+  const location = useLocation()
+  const pathname = location.pathname
+  const isPanelRoute = pathname.startsWith('/panel')
+  const isAdminRoute = pathname.startsWith('/admin')
+  const hideChrome = isPanelRoute || isAdminRoute
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      {!hideChrome && <Navbar />}
+      <main className="flex-1">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route 
+            path="/change-password" 
+            element={
+              <ProtectedRoute>
+                <ChangePassword />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/panel" 
+            element={
+              <ProtectedRoute>
+                <Panel />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/admin/:siteId" 
+            element={
+              <ProtectedRoute>
+                <AdminPanel />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/admin/:siteId/blog" 
+            element={
+              <ProtectedRoute>
+                <BlogPreview />
+              </ProtectedRoute>
+            } 
+          />
+        </Routes>
+      </main>
+      {!hideChrome && <Footer />}
+    </div>
   )
 }
 
