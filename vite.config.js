@@ -4,7 +4,9 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: process.env.NODE_ENV === 'production' ? '/web_satis_site/' : '/',
+  // GitHub Pages altında alt klasörde yayın hatalarını ("No routes matched location ...") önlemek için
+  // base'i '/' olarak sabitliyoruz. Eğer repoda alt dizin yayını gerekirse router'da basename kullanılmalı.
+  base: '/',
   server: {
     port: 5173,
     proxy: {
