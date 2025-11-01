@@ -9,7 +9,7 @@ const Footer = () => {
       { name: 'Hakkımızda', href: '/about' },
       { name: 'Hizmetler', href: '/services' },
       { name: 'İletişim', href: '/contact' },
-      { name: 'Blog', href: '#' }
+      { name: 'Blog', href: '/blog' }
     ],
     services: [
       { name: 'Web Tasarımı', href: '/services' },

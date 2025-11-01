@@ -8,6 +8,7 @@ const Panel = () => {
   const [sites, setSites] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
 
   useEffect(() => {
     // Login kontrolü
@@ -44,10 +45,16 @@ const Panel = () => {
     }
   }
 
-  const handleLogout = async () => {
-    if (window.confirm('Çıkış yapmak istediğinizden emin misiniz?')) {
-      await authApi.logout()
-    }
+  const openLogoutConfirm = () => {
+    setShowLogoutConfirm(true)
+  }
+
+  const closeLogoutConfirm = () => {
+    setShowLogoutConfirm(false)
+  }
+
+  const confirmLogout = async () => {
+    await authApi.logout()
   }
 
   const handleSiteAccess = (siteId, siteTitle) => {
@@ -86,7 +93,7 @@ const Panel = () => {
               >
                 Şifre Değiştir
               </button>
-              <button onClick={handleLogout} className="btn-logout">
+              <button onClick={openLogoutConfirm} className="btn-logout">
                 Çıkış Yap
               </button>
             </div>
@@ -196,6 +203,23 @@ const Panel = () => {
           </div>
         )}
       </div>
+
+      {showLogoutConfirm && (
+        <div className="modal-overlay" role="dialog" aria-modal="true">
+          <div className="modal">
+            <div className="modal-header">
+              <h3>Çıkış yapılsın mı?</h3>
+            </div>
+            <div className="modal-body">
+              <p>Hesabınızdan çıkış yapmak üzeresiniz. Devam etmek istiyor musunuz?</p>
+            </div>
+            <div className="modal-footer">
+              <button className="btn-cancel" onClick={closeLogoutConfirm}>Vazgeç</button>
+              <button className="btn-confirm" onClick={confirmLogout}>Evet, çıkış yap</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

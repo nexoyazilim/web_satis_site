@@ -8,6 +8,8 @@ const BlogManagement = () => {
   const [showForm, setShowForm] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [confirmDeletePostId, setConfirmDeletePostId] = useState(null);
+  const [confirmDeletePostTitle, setConfirmDeletePostTitle] = useState('');
 
   useEffect(() => {
     fetchPosts();
@@ -76,9 +78,18 @@ const BlogManagement = () => {
     }
   };
 
-  const deletePost = async (id) => {
-    if (!confirm('Bu blog yazısını silmek istediğinizden emin misiniz?')) return;
-    
+  const requestDeletePost = (post) => {
+    setConfirmDeletePostId(post.id);
+    setConfirmDeletePostTitle(post.title || '');
+  };
+
+  const cancelDeletePost = () => {
+    setConfirmDeletePostId(null);
+    setConfirmDeletePostTitle('');
+  };
+
+  const confirmDeletePost = async () => {
+    if (!confirmDeletePostId) return;
     try {
       setLoading(true);
       setError(null);
@@ -86,8 +97,10 @@ const BlogManagement = () => {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
       const customerId = user.id || '4';
       
-      await blogService.deletePost(id, customerId);
+      await blogService.deletePost(confirmDeletePostId, customerId);
       setSuccess('Blog yazısı başarıyla silindi!');
+      setConfirmDeletePostId(null);
+      setConfirmDeletePostTitle('');
       fetchPosts();
     } catch (error) {
       setError('Blog yazısı silinemedi: ' + error.message);
@@ -106,15 +119,16 @@ const BlogManagement = () => {
   return (
     <div className="blog-management">
       <div className="blog-header">
-        <h2>Blog Yönetimi</h2>
-        <p>Veteriner siteniz için blog yazılarınızı yönetin</p>
-        
+        <div>
+          <h2>📝 Blog Yönetimi</h2>
+          <p>Veteriner siteniz için blog yazılarınızı yönetin</p>
+        </div>
         <button 
           className="btn btn-primary"
           onClick={() => setShowForm(true)}
           disabled={loading}
         >
-          Yeni Blog Yazısı Ekle
+          ➕ Yeni Blog Yazısı Ekle
         </button>
       </div>
 
@@ -157,7 +171,6 @@ const BlogManagement = () => {
                   </span>
                 </div>
               </div>
-              fetch
               
               <p className="post-description">{post.description}</p>
               
@@ -167,14 +180,14 @@ const BlogManagement = () => {
                   onClick={() => setEditingPost(post)}
                   disabled={loading}
                 >
-                  Düzenle
+                  ✏️ Düzenle
                 </button>
                 <button 
                   className="btn btn-danger"
-                  onClick={() => deletePost(post.id)}
+                  onClick={() => requestDeletePost(post)}
                   disabled={loading}
                 >
-                  Sil
+                  🗑️ Sil
                 </button>
                 <a 
                   href={`https://demo-veteriner.nexoyazilim.com/blog/${post.slug}`} 
@@ -182,7 +195,7 @@ const BlogManagement = () => {
                   rel="noopener noreferrer"
                   className="btn btn-outline"
                 >
-                  Görüntüle
+                  👁️ Görüntüle
                 </a>
               </div>
             </div>
@@ -201,6 +214,26 @@ const BlogManagement = () => {
           }}
           loading={loading}
         />
+      )}
+      {Boolean(confirmDeletePostId) && (
+        <div className="modal-overlay" role="dialog" aria-modal="true">
+          <div className="modal">
+            <div className="modal-header">
+              <h3>Blog yazısını sil</h3>
+            </div>
+            <div className="modal-body">
+              <p>
+                "{confirmDeletePostTitle}" başlıklı yazıyı silmek istiyor musunuz?
+              </p>
+            </div>
+            <div className="modal-footer">
+              <button className="btn-cancel" onClick={cancelDeletePost}>Vazgeç</button>
+              <button className="btn-confirm" onClick={confirmDeletePost} disabled={loading}>
+                Evet, sil
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
@@ -236,82 +269,148 @@ const BlogPostForm = ({ post, onSubmit, onCancel, loading }) => {
     setFormData({
       ...formData,
       title,
-      slug: formData.slug || generateSlug(title)
+      slug: post?.slug || generateSlug(title)
     });
   };
 
   return (
-    <div className="blog-form-modal">
+    <div className="blog-form-modal" onClick={(e) => e.target.className === 'blog-form-modal' && onCancel()}>
       <div className="modal-content">
-        <h3>{post ? 'Blog Yazısını Düzenle' : 'Yeni Blog Yazısı'}</h3>
+        <div className="modal-header-section">
+          <h3>{post ? '📝 Blog Yazısını Düzenle' : '➕ Yeni Blog Yazısı Ekle'}</h3>
+          <button 
+            className="modal-close-btn"
+            onClick={onCancel}
+            disabled={loading}
+            aria-label="Kapat"
+          >
+            ×
+          </button>
+        </div>
         
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Başlık *</label>
-            <input
-              type="text"
-              value={formData.title}
-              onChange={handleTitleChange}
-              required
-              disabled={loading}
-            />
-          </div>
-          
-          <div className="form-group">
-            <label>Açıklama</label>
-            <textarea
-              value={formData.description}
-              onChange={(e) => setFormData({...formData, description: e.target.value})}
-              rows="3"
-              disabled={loading}
-            />
-          </div>
-          
-          <div className="form-group">
-            <label>İçerik *</label>
-            <textarea
-              value={formData.content}
-              onChange={(e) => setFormData({...formData, content: e.target.value})}
-              rows="10"
-              required
-              disabled={loading}
-            />
-          </div>
-          
-          <div className="form-row">
+        <form onSubmit={handleSubmit} className="blog-form">
+          <div className="form-section">
+            <h4 className="form-section-title">Temel Bilgiler</h4>
+            
             <div className="form-group">
-              <label>Kategori</label>
-              <select
-                value={formData.category}
-                onChange={(e) => setFormData({...formData, category: e.target.value})}
+              <label htmlFor="title">
+                Başlık <span className="required">*</span>
+              </label>
+              <input
+                id="title"
+                type="text"
+                value={formData.title}
+                onChange={handleTitleChange}
+                placeholder="Örn: Köpeklerde Aşı Takvimi"
+                required
                 disabled={loading}
-              >
-                <option value="health">Sağlık</option>
-                <option value="nutrition">Beslenme</option>
-                <option value="training">Eğitim</option>
-                <option value="general">Genel</option>
-              </select>
+                className="form-input"
+              />
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="description">
+                Kısa Açıklama
+                <span className="form-help-text">(blog listesinde gösterilir)</span>
+              </label>
+              <textarea
+                id="description"
+                value={formData.description}
+                onChange={(e) => setFormData({...formData, description: e.target.value})}
+                rows="3"
+                placeholder="Bu yazı hakkında kısa bir açıklama yazın..."
+                disabled={loading}
+                className="form-textarea"
+              />
+              <div className="char-count">{formData.description.length} karakter</div>
+            </div>
+          </div>
+
+          <div className="form-section">
+            <h4 className="form-section-title">İçerik</h4>
+            
+            <div className="form-group">
+              <label htmlFor="content">
+                Yazı İçeriği <span className="required">*</span>
+              </label>
+              <textarea
+                id="content"
+                value={formData.content}
+                onChange={(e) => setFormData({...formData, content: e.target.value})}
+                rows="15"
+                placeholder="Blog yazınızın detaylı içeriğini buraya yazın..."
+                required
+                disabled={loading}
+                className="form-textarea content-textarea"
+              />
+              <div className="char-count">{formData.content.length} karakter</div>
+            </div>
+          </div>
+
+          <div className="form-section">
+            <h4 className="form-section-title">Ayarlar</h4>
+            
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="category">Kategori</label>
+                <select
+                  id="category"
+                  value={formData.category}
+                  onChange={(e) => setFormData({...formData, category: e.target.value})}
+                  disabled={loading}
+                  className="form-select"
+                >
+                  <option value="health">🏥 Sağlık</option>
+                  <option value="nutrition">🍽️ Beslenme</option>
+                  <option value="training">🎓 Eğitim</option>
+                  <option value="general">📰 Genel</option>
+                </select>
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="publish-status">Yayın Durumu</label>
+                <div className="checkbox-wrapper">
+                  <label className="checkbox-label">
+                    <input
+                      id="publish-status"
+                      type="checkbox"
+                      checked={formData.is_published}
+                      onChange={(e) => setFormData({...formData, is_published: e.target.checked})}
+                      disabled={loading}
+                      className="checkbox-input"
+                    />
+                    <span className="checkbox-custom"></span>
+                    <span className="checkbox-text">
+                      {formData.is_published ? '✅ Yayında' : '📝 Taslak'}
+                    </span>
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
           
-          <div className="form-group">
-            <label>
-              <input
-                type="checkbox"
-                checked={formData.is_published}
-                onChange={(e) => setFormData({...formData, is_published: e.target.checked})}
-                disabled={loading}
-              />
-              Yayınla
-            </label>
-          </div>
-          
           <div className="form-actions">
-            <button type="submit" className="btn btn-primary" disabled={loading}>
-              {loading ? 'Kaydediliyor...' : (post ? 'Güncelle' : 'Oluştur')}
-            </button>
-            <button type="button" onClick={onCancel} className="btn btn-secondary" disabled={loading}>
+            <button 
+              type="button" 
+              onClick={onCancel} 
+              className="btn btn-secondary" 
+              disabled={loading}
+            >
               İptal
+            </button>
+            <button 
+              type="submit" 
+              className="btn btn-primary" 
+              disabled={loading || !formData.title || !formData.content}
+            >
+              {loading ? (
+                <>
+                  <span className="spinner-small"></span>
+                  Kaydediliyor...
+                </>
+              ) : (
+                post ? '💾 Güncelle' : '✨ Oluştur'
+              )}
             </button>
           </div>
         </form>
